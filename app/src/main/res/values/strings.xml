@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">lnghapp</string>
+    <string name="app_name">辽宁工会</string>
+    <string name="common_loading">加载中&#8230;</string>
 </resources>

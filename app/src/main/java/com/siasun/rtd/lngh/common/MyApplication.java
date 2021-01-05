@@ -12,11 +12,28 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LifecycleRegistry;
 
+import com.billy.android.swipe.SmartSwipeBack;
 import com.hjq.bar.TitleBar;
 import com.hjq.bar.style.TitleBarLightStyle;
+import com.hjq.http.EasyConfig;
+import com.hjq.http.config.IRequestServer;
 import com.hjq.toast.ToastInterceptor;
 import com.hjq.toast.ToastUtils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.siasun.rtd.lngh.R;
+import com.siasun.rtd.lngh.action.SwipeAction;
+import com.siasun.rtd.lngh.helper.ActivityStackManager;
+import com.siasun.rtd.lngh.http.model.RequestHandler;
+import com.siasun.rtd.lngh.http.server.ReleaseServer;
+import com.siasun.rtd.lngh.http.server.TestServer;
+import com.siasun.rtd.lngh.other.AppConfig;
+import com.siasun.rtd.lngh.other.CrashHandler;
+import com.siasun.rtd.lngh.umeng.UmengClient;
+import com.tencent.bugly.crashreport.CrashReport;
+
+import okhttp3.OkHttpClient;
 
 public class MyApplication extends Application implements LifecycleOwner {
 
@@ -68,6 +85,56 @@ public class MyApplication extends Application implements LifecycleOwner {
             public Drawable getBackIcon() {
                 return getDrawable(R.drawable.arrows_left_ic);
             }
+        });
+
+        // 本地异常捕捉
+        CrashHandler.register(application);
+
+        // 友盟统计、登录、分享 SDK
+        UmengClient.init(application);
+
+        // Bugly 异常捕捉
+        CrashReport.initCrashReport(application, AppConfig.getBuglyId(), AppConfig.isDebug());
+
+        // 设置全局的 Header 构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> new ClassicsHeader(context).setEnableLastTime(false));
+        // 设置全局的 Footer 构建器
+        SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> new ClassicsFooter(context).setDrawableSize(20));
+
+        // Activity 栈管理初始化
+        ActivityStackManager.getInstance().init(application);
+
+        // 网络请求框架初始化
+        IRequestServer server;
+        if (AppConfig.isDebug()) {
+            server = new TestServer();
+        } else {
+            server = new ReleaseServer();
+        }
+
+        EasyConfig.with(new OkHttpClient())
+                // 是否打印日志
+                //.setLogEnabled(AppConfig.isDebug())
+                // 设置服务器配置
+                .setServer(server)
+                // 设置请求处理策略
+                .setHandler(new RequestHandler(application))
+                // 设置请求重试次数
+                .setRetryCount(1)
+                // 添加全局请求参数
+                //.addParam("token", "6666666")
+                // 添加全局请求头
+                //.addHeader("time", "20191030")
+                // 启用配置
+                .into();
+
+
+        // Activity 侧滑返回
+        SmartSwipeBack.activitySlidingBack(application, activity -> {
+            if (activity instanceof SwipeAction) {
+                return ((SwipeAction) activity).isSwipeEnable();
+            }
+            return true;
         });
     }
 }

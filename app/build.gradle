@@ -46,7 +46,7 @@ android {
             // 设置混淆
             minifyEnabled false
             // 开发环境下的 BuglyId
-            buildConfigField 'String', 'BUGLY_ID', '\"请自行替换 Bugly 上面的 AppID\"'
+            buildConfigField 'String', 'BUGLY_ID', '\"6debf75b78\"'
             signingConfig signingConfigs.config
         }
 
@@ -60,7 +60,7 @@ android {
             // 设置混淆
             minifyEnabled true
             // 正式环境下的 BuglyId
-            buildConfigField 'String', 'BUGLY_ID', '\"请自行替换 Bugly 上面的 AppID\"'
+            buildConfigField 'String', 'BUGLY_ID', '\"6debf75b78\"'
             signingConfig signingConfigs.config
         }
     }
@@ -95,6 +95,8 @@ dependencies {
     implementation project(':base')
     // 自定义 View
     implementation project(':widget')
+    // 友盟封装
+    implementation project(':umeng')
 
     // 网络请求框架：https://github.com/getActivity/EasyHttp
     implementation 'com.hjq:http:6.9'

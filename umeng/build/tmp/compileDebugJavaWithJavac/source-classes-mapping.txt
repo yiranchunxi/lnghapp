@@ -1,0 +1,20 @@
+com/siasun/rtd/lngh/wxapi/WXEntryActivity.java
+ com.siasun.rtd.lngh.wxapi.WXEntryActivity
+com/hjq/umeng/BuildConfig.java
+ com.hjq.umeng.BuildConfig
+com/siasun/rtd/lngh/umeng/UmengClient.java
+ com.siasun.rtd.lngh.umeng.UmengClient
+com/siasun/rtd/lngh/umeng/Platform.java
+ com.siasun.rtd.lngh.umeng.Platform
+com/siasun/rtd/lngh/umeng/UmengShare.java
+ com.siasun.rtd.lngh.umeng.UmengShare
+ com.siasun.rtd.lngh.umeng.UmengShare$1
+ com.siasun.rtd.lngh.umeng.UmengShare$OnShareListener
+ com.siasun.rtd.lngh.umeng.UmengShare$ShareData
+ com.siasun.rtd.lngh.umeng.UmengShare$ShareListenerWrapper
+com/siasun/rtd/lngh/umeng/UmengLogin.java
+ com.siasun.rtd.lngh.umeng.UmengLogin
+ com.siasun.rtd.lngh.umeng.UmengLogin$1
+ com.siasun.rtd.lngh.umeng.UmengLogin$LoginData
+ com.siasun.rtd.lngh.umeng.UmengLogin$LoginListenerWrapper
+ com.siasun.rtd.lngh.umeng.UmengLogin$OnLoginListener

@@ -17,7 +17,11 @@ import com.siasun.rtd.lngh.common.MyFragment;
 import com.siasun.rtd.lngh.helper.ActivityStackManager;
 import com.siasun.rtd.lngh.helper.DoubleClickHelper;
 import com.siasun.rtd.lngh.other.KeyboardWatcher;
+import com.siasun.rtd.lngh.ui.fragment.DiscoveryFragment;
 import com.siasun.rtd.lngh.ui.fragment.HomeFragment;
+import com.siasun.rtd.lngh.ui.fragment.MeFragment;
+import com.siasun.rtd.lngh.ui.fragment.ServiceFragment;
+import com.siasun.rtd.lngh.ui.fragment.UnionFragment;
 
 public final class MainTabActivity  extends MyActivity implements KeyboardWatcher.SoftKeyboardStateListener,
         BottomNavigationView.OnNavigationItemSelectedListener  {
@@ -47,7 +51,10 @@ public final class MainTabActivity  extends MyActivity implements KeyboardWatche
     protected void initData() {
         mPagerAdapter = new BaseFragmentAdapter<>(this);
         mPagerAdapter.addFragment(HomeFragment.newInstance());
-
+        mPagerAdapter.addFragment(UnionFragment.newInstance());
+        mPagerAdapter.addFragment(ServiceFragment.newInstance());
+        mPagerAdapter.addFragment(DiscoveryFragment.newInstance());
+        mPagerAdapter.addFragment(MeFragment.newInstance());
 
         // 设置成懒加载模式
         mPagerAdapter.setLazyMode(true);
@@ -65,15 +72,18 @@ public final class MainTabActivity  extends MyActivity implements KeyboardWatche
             case R.id.menu_home:
                 mViewPager.setCurrentItem(0);
                 return true;
-            /*case R.id.home_found:
+            case R.id.menu_union:
                 mViewPager.setCurrentItem(1);
                 return true;
-            case R.id.home_message:
+            case R.id.menu_service:
                 mViewPager.setCurrentItem(2);
                 return true;
-            case R.id.home_me:
+            case R.id.menu_discovery:
                 mViewPager.setCurrentItem(3);
-                return true;*/
+                return true;
+            case R.id.menu_my:
+                mViewPager.setCurrentItem(4);
+                return true;
             default:
                 break;
         }

@@ -1,5 +1,7 @@
 package com.siasun.rtd.lngh.ui.activity;
 
+import android.os.Handler;
+
 import androidx.annotation.NonNull;
 
 import com.gyf.immersionbar.BarHide;
@@ -17,8 +19,14 @@ public final class SplashActivity extends MyActivity {
 
     @Override
     protected void initView() {
-        startActivity(MainTabActivity.class);
-        finish();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(MainTabActivity.class);
+                finish();
+            }
+        },2000);
+
     }
 
     @Override

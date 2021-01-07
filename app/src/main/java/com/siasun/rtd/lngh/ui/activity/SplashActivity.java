@@ -1,6 +1,7 @@
 package com.siasun.rtd.lngh.ui.activity;
 
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -19,14 +20,11 @@ public final class SplashActivity extends MyActivity {
 
     @Override
     protected void initView() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(MainTabActivity.class);
-                finish();
-            }
+        postDelayed(()->{
+            Log.e("test","initView");
+            startActivity(MainTabActivity.class);
+            finish();
         },2000);
-
     }
 
     @Override

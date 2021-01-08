@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@android:color/white"
+        android:paddingBottom="8dp"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/newsTopItemImgView"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="14dp"
+            android:textSize="14sp"
+            android:textColor="@color/colorTabTextNormal"
+            android:id="@+id/newsTopItemTitleTextView"
+            android:maxLines="2"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:background="@drawable/shape_news_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/newsTopItemImgView"
+            android:layout_marginRight="16dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textSize="12sp"
+            android:textColor="@color/colorPrimary"
+            android:maxLines="1"
+            android:id="@+id/newsTopItemTitleTagTextView"
+            android:text="@string/topNews"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/newsTopClassTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="12dp"
+            android:textColor="@color/colorNewsItemDate"
+            android:textSize="12sp"
+            />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="30dp"
+            android:textSize="12sp"
+            android:textColor="@color/colorNewsItemDate"
+            android:layout_toLeftOf="@+id/newsTopItemTitleTagTextView"
+            android:id="@+id/newsTopItemDateTextView"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="134dp"
+            android:layout_height="75dp"
+            android:id="@+id/newsTopItemImgView"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            />
+
+    </RelativeLayout>
+

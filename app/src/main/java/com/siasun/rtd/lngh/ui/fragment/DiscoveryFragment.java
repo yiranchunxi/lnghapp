@@ -4,6 +4,9 @@ import com.siasun.rtd.lngh.R;
 import com.siasun.rtd.lngh.common.MyFragment;
 import com.siasun.rtd.lngh.ui.activity.MainTabActivity;
 
+/**
+ * 惠商城fragment
+ */
 public final class DiscoveryFragment extends MyFragment<MainTabActivity> {
 
     public static DiscoveryFragment newInstance() {
@@ -12,7 +15,7 @@ public final class DiscoveryFragment extends MyFragment<MainTabActivity> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.home_fragment;
+        return R.layout.discovery_fragment;
     }
 
     @Override

@@ -4,6 +4,9 @@ import com.siasun.rtd.lngh.R;
 import com.siasun.rtd.lngh.common.MyFragment;
 import com.siasun.rtd.lngh.ui.activity.MainTabActivity;
 
+/**
+ * 工会圈fragment
+ */
 public final class UnionFragment extends MyFragment<MainTabActivity> {
 
     public static UnionFragment newInstance() {
@@ -12,7 +15,7 @@ public final class UnionFragment extends MyFragment<MainTabActivity> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.home_fragment;
+        return R.layout.union_fragment;
     }
 
     @Override

@@ -7,4 +7,8 @@ public class TestServer extends ReleaseServer {
         return "http://app.lnszgh.org/";
     }
 
+    @Override
+    public String getPath() {
+        return "lngh_app/";
+    }
 }

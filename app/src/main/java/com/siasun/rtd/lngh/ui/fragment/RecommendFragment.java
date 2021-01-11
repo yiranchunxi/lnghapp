@@ -30,6 +30,10 @@ public class RecommendFragment extends MyFragment<MyActivity>
 
     private NewsAdapter mAdapter;
 
+    public static RecommendFragment newInstance() {
+        return new RecommendFragment();
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.recommend_fragment;

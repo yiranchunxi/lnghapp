@@ -42,7 +42,7 @@ public final class HomeFragment extends MyFragment<MainTabActivity> {
         mTabLayout = findViewById(R.id.tl_home_tab);
         mViewPager = findViewById(R.id.vp_home_pager);
         mPagerAdapter = new BaseFragmentAdapter<>(this);
-        mPagerAdapter.addFragment(UnionFragment.newInstance(), "推荐");
+        mPagerAdapter.addFragment(RecommendFragment.newInstance(), "推荐");
         mPagerAdapter.addFragment(UnionFragment.newInstance(), "省总");
         mPagerAdapter.addFragment(UnionFragment.newInstance(), "市总");
         mPagerAdapter.addFragment(UnionFragment.newInstance(), "视频");

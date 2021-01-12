@@ -54,10 +54,11 @@ public class RecommendFragment extends MyFragment<MyActivity>
     @Override
     protected void initData() {
         EasyHttp.get(this)
-                .api(new NewsApi())
+                .api(new NewsApi().setLast_id(""))
                 .request(new HttpCallback<QueryNewsResponseDTO<QueryNewsResponseItemDTO>>(this){
                     @Override
                     public void onSucceed(QueryNewsResponseDTO<QueryNewsResponseItemDTO> result) {
+
                         mAdapter.setData(result.data);
                     }
                 });
@@ -76,6 +77,16 @@ public class RecommendFragment extends MyFragment<MyActivity>
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-
+        EasyHttp.get(this)
+                .api(new NewsApi().setLast_id(""))
+                .request(new HttpCallback<QueryNewsResponseDTO<QueryNewsResponseItemDTO>>(this){
+                    @Override
+                    public void onSucceed(QueryNewsResponseDTO<QueryNewsResponseItemDTO> result) {
+                        mAdapter.clearData();
+                        mAdapter.setData(result.data);
+                        mRefreshLayout.finishRefresh();
+                        toast("刷新完成");
+                    }
+                });
     }
 }

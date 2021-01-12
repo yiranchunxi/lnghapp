@@ -16,6 +16,7 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 import com.hjq.http.EasyConfig;
+import com.siasun.rtd.lngh.R;
 
 import java.io.File;
 import java.io.InputStream;
@@ -60,7 +61,7 @@ public final class GlideConfig extends AppGlideModule {
         builder.setBitmapPool(new LruBitmapPool(customBitmapPoolSize));
 
         // 设置默认的加载占位图和加载出错图
-        //builder.setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.image_loading_bg).error(R.drawable.image_error_bg));
+        builder.setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.shape_all_glide_placeholder).error(R.drawable.image_error_bg));
     }
 
     @Override

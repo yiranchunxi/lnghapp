@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hjq.base.BaseAdapter;
@@ -19,7 +20,10 @@ import com.siasun.rtd.lngh.common.MyFragment;
 import com.siasun.rtd.lngh.http.request.NewsApi;
 import com.siasun.rtd.lngh.http.response.QueryNewsResponseDTO;
 import com.siasun.rtd.lngh.http.response.QueryNewsResponseItemDTO;
+import com.siasun.rtd.lngh.ui.activity.BrowserActivity;
 import com.siasun.rtd.lngh.ui.adapter.NewsAdapter;
+
+import java.util.List;
 
 public class RecommendFragment extends MyFragment<MyActivity>
         implements OnRefreshLoadMoreListener,
@@ -58,21 +62,33 @@ public class RecommendFragment extends MyFragment<MyActivity>
                 .request(new HttpCallback<QueryNewsResponseDTO<QueryNewsResponseItemDTO>>(this){
                     @Override
                     public void onSucceed(QueryNewsResponseDTO<QueryNewsResponseItemDTO> result) {
-
-                        mAdapter.setData(result.data);
+                        result.top_news.addAll(result.data);
+                        mAdapter.setData(result.top_news);
                     }
                 });
     }
 
     @Override
     public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-
+        BrowserActivity.start(getAttachActivity(), mAdapter.getData().get(position).redirect_url);
     }
 
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+            String last_id=mAdapter.getData().get(mAdapter.getData().size()-1).id;
+            //toast(last_id);
 
+            EasyHttp.get(this)
+                    .api(new NewsApi().setLast_id(last_id))
+                    .request(new HttpCallback<QueryNewsResponseDTO<QueryNewsResponseItemDTO>>(this){
+                        @Override
+                        public void onSucceed(QueryNewsResponseDTO<QueryNewsResponseItemDTO> result) {
+                            mAdapter.addData(result.data);
+                            mRefreshLayout.finishLoadMore();
+                            toast("加载完成");
+                        }
+                    });
     }
 
     @Override
@@ -83,7 +99,8 @@ public class RecommendFragment extends MyFragment<MyActivity>
                     @Override
                     public void onSucceed(QueryNewsResponseDTO<QueryNewsResponseItemDTO> result) {
                         mAdapter.clearData();
-                        mAdapter.setData(result.data);
+                        result.top_news.addAll(result.data);
+                        mAdapter.setData(result.top_news);
                         mRefreshLayout.finishRefresh();
                         toast("刷新完成");
                     }

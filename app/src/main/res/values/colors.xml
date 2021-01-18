@@ -13,4 +13,16 @@
     <!-- 资讯item-->
     <color name="colorTabTextNormal">#252525</color>
     <color name="colorNewsItemDate">#505050</color>
+
+    <!-- 分割线的颜色 -->
+    <color name="colorLine">#ECECEC</color>
+
+    <!-- 对话框取消按钮文本颜色 -->
+    <color name="colorCancel">#F44336</color>
+
+    <!-- 对话框确认按钮文本颜色 -->
+    <color name="colorConfirm">#007AFF</color>
+
+    <!-- 按钮按压时的颜色 -->
+    <color name="colorButtonPressed">#AA5A8DDF</color>
 </resources>

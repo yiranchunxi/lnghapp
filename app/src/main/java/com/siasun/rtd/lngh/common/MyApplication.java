@@ -85,6 +85,7 @@ public class MyApplication extends Application implements LifecycleOwner {
             public Drawable getBackIcon() {
                 return getDrawable(R.drawable.arrows_left_ic);
             }
+
         });
 
         // 本地异常捕捉

@@ -24,4 +24,22 @@
 
     <string name="topNews">置顶</string>
 
+
+    <string name="common_confirm">确定</string>
+    <string name="common_cancel">取消</string>
+
+    <string name="common_permission_hint">请先授予权限</string>
+    <string name="common_permission_fail">授权失败，请手动授予权限</string>
+
+    <string name="common_network">当前没有网络连接，请检查网络设置</string>
+
+
+    <!-- 提示布局 -->
+    <string name="hint_layout_no_data">空空如也</string>
+    <string name="hint_layout_error_request">请求出错，点击重试</string>
+    <string name="hint_layout_error_network">网络错误，点击重试</string>
+
+
+    <!-- 浏览器 -->
+    <string name="web_title">网页加载中&#8230;</string>
 </resources>

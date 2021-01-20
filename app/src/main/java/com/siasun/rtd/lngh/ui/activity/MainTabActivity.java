@@ -37,7 +37,6 @@ public final class MainTabActivity  extends MyActivity implements KeyboardWatche
 
     @Override
     protected void initView() {
-        Log.e("test","initView1");
         mViewPager = findViewById(R.id.vp_home_pager);
         mBottomNavigationView = findViewById(R.id.bv_home_navigation);
 

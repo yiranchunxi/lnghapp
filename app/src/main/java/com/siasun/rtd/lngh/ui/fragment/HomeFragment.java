@@ -57,20 +57,7 @@ public final class HomeFragment extends MyFragment<MainTabActivity> {
         //Log.e("test",SharedPreferenceUtil.getInstance().get(getActivity(),"test"));
         //SharedPreferenceUtil.getInstance().clearConfig(getActivity(),"test");
         //Log.e("test",SharedPreferenceUtil.getInstance().get(getActivity(),"test"));
-        EasyHttp.get(this)
-                .api(new SwiperApi())
-                .request(new HttpCallback<QueryBannerResponseDTO<QueryBannerResponseItemDTO>>(this){
 
-                    @Override
-                    public void onSucceed(QueryBannerResponseDTO<QueryBannerResponseItemDTO> result) {
-                        Log.e("test",result.getData().get(0).pic_name);
-                    }
-
-                    @Override
-                    public void onFail(Exception e) {
-                        Log.e("test",e.toString());
-                    }
-                });
 
 
     }

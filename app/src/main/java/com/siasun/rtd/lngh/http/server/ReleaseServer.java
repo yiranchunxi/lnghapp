@@ -12,7 +12,7 @@ public class ReleaseServer implements IRequestServer {
 
     @Override
     public String getHost() {
-        return "https://www.baidu.com/";
+        return "http://app.lnszgh.org/";
     }
 
     @Override

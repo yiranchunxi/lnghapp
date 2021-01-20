@@ -1,9 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="testtest"/>
-</androidx.appcompat.widget.LinearLayoutCompat>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="211dp"
+                android:background="@drawable/icon_me_bg"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:layout_centerVertical="true"
+                    >
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:scaleType="centerCrop"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="50dp"
+                        app:srcCompat="@drawable/icon_me_photo" />
+                    <!--去登录 -->
+                    <RelativeLayout
+                        android:id="@+id/gotoLoginButton"
+                        android:layout_width="90dp"
+                        android:layout_height="28dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_toRightOf="@+id/avatar"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/icon_me_btn">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/gotoLogin"
+                            android:textColor="@android:color/white"
+                            android:textSize="15sp" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="18dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/icon_me_next" />
+
+                    </RelativeLayout>
+                    <!--姓名 -->
+                    <RelativeLayout
+                        android:id="@+id/userNameContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_toRightOf="@+id/avatar"
+                        android:visibility="invisible">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/userNameTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/shape_add_picture"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingTop="5dp"
+                            android:textColor="@android:color/white"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+
+                    <!--去认证 -->
+                    <RelativeLayout
+                        android:id="@+id/gotoVerifyButton"
+                        android:layout_width="90dp"
+                        android:layout_height="28dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_toRightOf="@+id/avatar"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/icon_me_btn"
+                        android:visibility="invisible"
+                        >
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/gotoVerify"
+                            android:textColor="@android:color/white"
+                            android:textSize="15sp" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="18dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/icon_me_next" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/userNameContainer"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_toRightOf="@+id/avatar"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_me_realname_medal"
+                            android:layout_width="55dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/icon_me_realname_medal"
+                            android:visibility="invisible"/>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_me_union_medal"
+                            android:layout_width="55dp"
+                            android:layout_height="18dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/icon_me_union_medal"
+                            android:visibility="invisible"/>
+
+
+                        <LinearLayout
+                            android:id="@+id/ll_name_pass_go_verify"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:background="@drawable/shape_my_go_verify"
+                            android:paddingLeft="9dp"
+                            android:paddingTop="1dp"
+                            android:paddingBottom="1dp"
+                            android:layout_marginLeft="10dp"
+                            android:visibility="invisible">
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="完善认证"
+                                android:textColor="@android:color/white"
+                                android:textSize="11sp"/>
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="18dp"
+                                android:layout_height="14dp"
+                                android:background="@drawable/icon_me_next" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- 扫描二维码 -->
+                    <ImageView
+                        android:id="@+id/iv_discovery_scan"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/icon_discovery_scan"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

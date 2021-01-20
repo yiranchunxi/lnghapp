@@ -3,8 +3,9 @@ package com.siasun.rtd.lngh.http.request;
 import com.hjq.http.config.IRequestApi;
 import com.hjq.http.config.IRequestPath;
 import com.hjq.http.model.BodyType;
+import com.siasun.rtd.lngh.http.server.InfoServer;
 
-public final class NewsApi implements IRequestApi, IRequestPath {
+public final class NewsApi extends InfoServer implements IRequestApi, IRequestPath {
 
 
 

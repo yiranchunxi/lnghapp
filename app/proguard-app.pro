@@ -58,6 +58,6 @@
 -dontwarn org.conscrypt.**
 
 # 不混淆这个包下的字段名
--keepclassmembernames class com.hjq.demo.http.** {
+-keepclassmembernames class com.siasun.rtd.lngh.http.** {
     <fields>;
 }

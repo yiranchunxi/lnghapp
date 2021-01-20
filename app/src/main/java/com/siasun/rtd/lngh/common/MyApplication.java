@@ -17,6 +17,7 @@ import com.hjq.bar.TitleBar;
 import com.hjq.bar.style.TitleBarLightStyle;
 import com.hjq.http.EasyConfig;
 import com.hjq.http.config.IRequestServer;
+import com.hjq.http.model.JsonBody;
 import com.hjq.toast.ToastInterceptor;
 import com.hjq.toast.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -26,14 +27,27 @@ import com.siasun.rtd.lngh.R;
 import com.siasun.rtd.lngh.action.SwipeAction;
 import com.siasun.rtd.lngh.helper.ActivityStackManager;
 import com.siasun.rtd.lngh.http.model.RequestHandler;
+import com.siasun.rtd.lngh.http.prefs.Const;
+import com.siasun.rtd.lngh.http.prefs.SharedPreferenceUtil;
+import com.siasun.rtd.lngh.http.prefs.SystemUtils;
 import com.siasun.rtd.lngh.http.server.ReleaseServer;
 import com.siasun.rtd.lngh.http.server.TestServer;
 import com.siasun.rtd.lngh.other.AppConfig;
 import com.siasun.rtd.lngh.other.CrashHandler;
+import com.siasun.rtd.lngh.other.IntentKey;
 import com.siasun.rtd.lngh.umeng.UmengClient;
 import com.tencent.bugly.crashreport.CrashReport;
 
+import java.io.IOException;
+import java.util.UUID;
+
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MyApplication extends Application implements LifecycleOwner {
 
@@ -113,7 +127,25 @@ public class MyApplication extends Application implements LifecycleOwner {
             server = new ReleaseServer();
         }
 
-        EasyConfig.with(new OkHttpClient())
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request();
+                        RequestBody body = request.body();
+                        if (body instanceof JsonBody) {
+                            //Log.e("test",((JsonBody)body).getJsonObject().optString("requestBody"));
+                            body = RequestBody.create(MediaType.parse("application/octet-stream"),((JsonBody)body).getJsonObject().optString("requestBody"));
+                            Request.Builder builder = request.newBuilder();
+                            builder.method(request.method(), body);
+                            request = builder.build();
+                        }
+                        return chain.proceed(request);
+                    }
+                })
+                .build();
+
+        EasyConfig.with(okHttpClient)
                 // 是否打印日志
                 .setLogEnabled(AppConfig.isDebug())
                 // 设置服务器配置
@@ -121,7 +153,7 @@ public class MyApplication extends Application implements LifecycleOwner {
                 // 设置请求处理策略
                 .setHandler(new RequestHandler(application))
                 // 设置请求重试次数
-                .setRetryCount(1)
+                .setRetryCount(3)
                 // 添加全局请求参数
                 //.addParam("token", "6666666")
                 // 添加全局请求头
@@ -137,5 +169,29 @@ public class MyApplication extends Application implements LifecycleOwner {
             }
             return true;
         });
+
+        //获取设备信息
+        Const.DevInfo = android.os.Build.BRAND + " " + android.os.Build.MODEL;
+
+        String imei = SharedPreferenceUtil.getInstance().get(application, IntentKey.DEVICE_ID);
+        if ("".equals(imei)){
+            try {
+                imei = SystemUtils.getIMEI(application);
+            }catch (Exception e){
+                Log.e("test",e.toString());
+            }
+
+        }
+        if (imei == null || "".equals(imei)){
+            imei = UUID.randomUUID().toString().replace("-", "");
+        }
+
+        try {
+            Const.DeviceId = imei;
+            SharedPreferenceUtil.getInstance().put(application,IntentKey.DEVICE_ID, imei);
+        }catch (Exception e){
+            Log.e("test",e.toString());
+        }
+
     }
 }

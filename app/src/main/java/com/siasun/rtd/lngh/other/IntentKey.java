@@ -98,4 +98,9 @@ public final class IntentKey {
     public static final String ALI_PAY = "ali_pay";
     /** 银联支付 */
     public static final String UNION_PAY = "union_pay";
+
+    /**设备id**/
+    public static final String DEVICE_ID="device_id";
+    /**设备信息**/
+    public static final String DEVICE_INFO="device_info";
 }

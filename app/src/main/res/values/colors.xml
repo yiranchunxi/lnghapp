@@ -25,4 +25,15 @@
 
     <!-- 按钮按压时的颜色 -->
     <color name="colorButtonPressed">#AA5A8DDF</color>
+
+    <!-- 按钮禁用时的颜色 -->
+    <color name="colorButtonDisable">#BBBBBB</color>
+
+
+    <color name="color4f4f4f">#4f4f4f</color>
+    <color name="colorb2121f">#b2121f</color>
+    <color name="color69">#999999</color>
+    <color name="colorf5f5f5">#f5f5f5</color>
+
+    <color name="color870505">#870505</color>
 </resources>

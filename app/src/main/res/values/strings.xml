@@ -42,4 +42,37 @@
 
     <!-- 浏览器 -->
     <string name="web_title">网页加载中&#8230;</string>
+
+
+    <string name="home_service_title">工会服务</string>
+    <string name="home_service_more">查看更多服务</string>
+    <string name="home_service_1">12351</string>
+    <string name="home_service_2">职工书屋</string>
+    <string name="home_service_3">劳模之家</string>
+    <string name="home_service_4">活动竞赛</string>
+    <string name="gotoLogin">去登录</string>
+    <string name="gotoVerify">去认证</string>
+
+
+    <!-- 登录 -->
+    <string name="login_register">注册</string>
+    <string name="login_forget">忘记密码？</string>
+    <string name="login_text">登录</string>
+
+
+    <!-- 通用的 -->
+    <string name="common_phone_input_hint">输入手机号码</string>
+    <string name="common_phone_input_error">手机号输入不正确</string>
+
+    <string name="common_password_input_error">请输入密码</string>
+    <string name="common_password_input_unlike">两次密码输入不一致，请重新输入</string>
+
+    <string name="common_code_input_hint">输入验证码</string>
+    <string name="common_code_send">发送验证码</string>
+    <string name="common_code_send_hint">验证码已发送，请注意查收</string>
+    <string name="common_code_error_hint">验证码错误，请检查输入</string>
+
+    <string name="common_step_next">下一步</string>
+    <string name="common_step_complete">完成</string>
+    <string name="common_step_commit">提交</string>
 </resources>

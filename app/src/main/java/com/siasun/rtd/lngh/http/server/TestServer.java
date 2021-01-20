@@ -4,7 +4,8 @@ public class TestServer extends ReleaseServer {
 
     @Override
     public String getHost() {
-        return "http://app.lnszgh.org/";
+        return "http://182.92.172.248:8000/";
+       // return "http://app.lnszgh.org/";
     }
 
     @Override

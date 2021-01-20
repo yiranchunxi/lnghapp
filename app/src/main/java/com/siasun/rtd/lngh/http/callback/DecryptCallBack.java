@@ -16,8 +16,13 @@ import okhttp3.Call;
 public class DecryptCallBack<T> implements OnHttpListener<T> {
 
     private OnHttpListener mSource;
-    public DecryptCallBack(OnHttpListener source) {
-        this.mSource=source;
+    private ChildrenCallBack childrenCallBack;
+    public interface ChildrenCallBack{
+        void onSucceed(String result);
+    }
+    public DecryptCallBack(OnHttpListener source,ChildrenCallBack childrenCallBack) {
+        mSource=source;
+        this.childrenCallBack=childrenCallBack;
     }
 
     @Override
@@ -53,7 +58,9 @@ public class DecryptCallBack<T> implements OnHttpListener<T> {
                 }
                 String responseStr = MsgHandler.decryptResponseMsg(responseMsgBean);
                 Log.e("test2",responseStr);
-                mSource.onSucceed(responseStr);
+                if(childrenCallBack!=null){
+                    childrenCallBack.onSucceed(responseStr);
+                }
             }
         }
     }

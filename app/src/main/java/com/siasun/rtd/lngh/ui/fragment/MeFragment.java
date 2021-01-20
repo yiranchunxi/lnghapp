@@ -103,8 +103,8 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
                 .api(new QueryUserInfoApi()
                         .setRequestBody(requestMsg))
 
-                .request(new DecryptCallBack<String>(this) {
-
+                .request(new DecryptCallBack<String>(this, new DecryptCallBack.ChildrenCallBack() {
+                    @Override
                     public void onSucceed(String result) {
                         toast(result);
                         QueryUserInfoResponseDTO bean = new Gson().fromJson(result, QueryUserInfoResponseDTO.class);
@@ -115,12 +115,12 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
 
                                 if(!TextUtils.isEmpty(bean.org_name))
                                     SharedPreferenceUtil.getInstance().put(getAttachActivity(),"org_name",bean.org_name);
-                                    SharedPreferenceUtil.getInstance().put(getAttachActivity(),"avatar",bean.avatar);
+                                SharedPreferenceUtil.getInstance().put(getAttachActivity(),"avatar",bean.avatar);
 
 
-                                    if(!TextUtils.isEmpty(bean.tag)){
-                                        SharedPreferenceUtil.getInstance().put(getAttachActivity(),"tag",bean.tag);
-                                    }
+                                if(!TextUtils.isEmpty(bean.tag)){
+                                    SharedPreferenceUtil.getInstance().put(getAttachActivity(),"tag",bean.tag);
+                                }
                             } else if ("1".equals(bean.verify_state)) {
                                 SharedPreferenceUtil.getInstance().put(getAttachActivity(),"verify_state",bean.verify_state);
                                 SharedPreferenceUtil.getInstance().put(getAttachActivity(),"user_name",bean.user_name);
@@ -130,10 +130,10 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
                                 SharedPreferenceUtil.getInstance().put(getAttachActivity(),"verify_state",bean.verify_state);
                             }
                         } else {
-                           toast(bean.msg);
+                            toast(bean.msg);
                         }
                     }
-
+                }) {
                     @Override
                     public void onFail(Exception e) {
                         toast(e.toString());

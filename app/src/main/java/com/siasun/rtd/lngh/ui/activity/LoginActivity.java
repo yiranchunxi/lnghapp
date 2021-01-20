@@ -36,6 +36,7 @@ import com.siasun.rtd.lngh.http.response.LoginResponseBean;
 import com.siasun.rtd.lngh.other.IntentKey;
 import com.siasun.rtd.lngh.other.KeyboardWatcher;
 
+import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
@@ -157,37 +158,42 @@ public class LoginActivity extends MyActivity implements KeyboardWatcher.SoftKey
             EasyHttp.post(this)
                     .api(new LoginApi()
                             .setRequestBody(requestMsg))
-                    .request(new DecryptCallBack<String>(this) {
-
+                    .request(new DecryptCallBack<String>(this, new DecryptCallBack.ChildrenCallBack() {
                         @Override
                         public void onSucceed(String result) {
-                            Log.e("test3",result);
+                                Log.e("test3",result);
+                                toast(result);
+                                LoginResponseBean responseBean=new Gson().fromJson(result,LoginResponseBean.class);
 
-                            toast(result);
-                            LoginResponseBean responseBean=new Gson().fromJson(result,LoginResponseBean.class);
+                                if ("0".equals(responseBean.result)){
+                                    Const.Tk = responseBean.token;
+                                    SharedPreferenceUtil.getInstance().put(LoginActivity.this,IntentKey.PHONE,mPhoneView.getText().toString());
+                                    SharedPreferenceUtil.getInstance().put(LoginActivity.this,IntentKey.TOKEN,responseBean.token);
+                                    if(!TextUtils.isEmpty(responseBean.alias)){
+                                        SharedPreferenceUtil.getInstance().put(LoginActivity.this,"alias",responseBean.alias);
+                                    }
+                                    if(!TextUtils.isEmpty(responseBean.identification)){
+                                        SharedPreferenceUtil.getInstance().put(LoginActivity.this,"identification",responseBean.identification);
+                                    }
 
-                            if ("0".equals(responseBean.result)){
-                                Const.Tk = responseBean.token;
-                                SharedPreferenceUtil.getInstance().put(LoginActivity.this,IntentKey.PHONE,mPhoneView.getText().toString());
-                                SharedPreferenceUtil.getInstance().put(LoginActivity.this,IntentKey.TOKEN,responseBean.token);
-                                if(!TextUtils.isEmpty(responseBean.alias)){
-                                    SharedPreferenceUtil.getInstance().put(LoginActivity.this,"alias",responseBean.alias);
+                                    showDialog();
+                                    postDelayed(() -> {
+                                        hideDialog();
+                                        startActivity(MainTabActivity.class);
+                                        finish();
+                                    }, 2000);
+
+
+                                }else {
+                                    toast(responseBean.msg);
                                 }
-                                if(!TextUtils.isEmpty(responseBean.identification)){
-                                    SharedPreferenceUtil.getInstance().put(LoginActivity.this,"identification",responseBean.identification);
-                                }
-
-                                showDialog();
-                                postDelayed(() -> {
-                                  hideDialog();
-                                  startActivity(MainTabActivity.class);
-                                  finish();
-                                }, 2000);
-
-
-                            }else {
-                                toast(responseBean.msg);
                             }
+
+                    }) {
+
+                        @Override
+                        public void onStart(Call call) {
+                            toast("onStart");
                         }
 
                         @Override

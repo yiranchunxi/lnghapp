@@ -16,4 +16,5 @@ public class QueryUserInfoResponseDTO {
     public String card_no;
     public String company_id;
     public String company_name;
+    public String certificated;
 }

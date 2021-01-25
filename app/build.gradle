@@ -154,9 +154,12 @@ dependencies {
     // 内存泄漏：https://github.com/square/leakcanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
 
+    //轮播图
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'cn.bingoogolapple:bga-banner:3.0.0@aar'
 
+    //事件总线
+    implementation 'org.greenrobot:eventbus:3.2.0'
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'

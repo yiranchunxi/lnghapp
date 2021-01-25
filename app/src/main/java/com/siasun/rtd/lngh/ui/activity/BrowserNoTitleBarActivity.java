@@ -11,7 +11,6 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
-import com.hjq.bar.TitleBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -20,11 +19,17 @@ import com.siasun.rtd.lngh.action.StatusAction;
 import com.siasun.rtd.lngh.aop.CheckNet;
 import com.siasun.rtd.lngh.aop.DebugLog;
 import com.siasun.rtd.lngh.common.MyActivity;
+import com.siasun.rtd.lngh.http.bean.MessageEvent;
+import com.siasun.rtd.lngh.http.prefs.Const;
 import com.siasun.rtd.lngh.other.IntentKey;
 import com.siasun.rtd.lngh.widget.BrowserView;
 import com.siasun.rtd.lngh.widget.HintLayout;
 
-public final class BrowserActivity extends MyActivity implements StatusAction, OnRefreshListener {
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+public final class BrowserNoTitleBarActivity extends MyActivity implements StatusAction, OnRefreshListener {
 
     @CheckNet
     @DebugLog
@@ -32,7 +37,7 @@ public final class BrowserActivity extends MyActivity implements StatusAction, O
         if (TextUtils.isEmpty(url)) {
             return;
         }
-        Intent intent = new Intent(context, BrowserActivity.class);
+        Intent intent = new Intent(context, BrowserNoTitleBarActivity.class);
         intent.putExtra(IntentKey.URL, url);
         context.startActivity(intent);
     }
@@ -41,11 +46,11 @@ public final class BrowserActivity extends MyActivity implements StatusAction, O
     private ProgressBar mProgressBar;
     private SmartRefreshLayout mRefreshLayout;
     private BrowserView mBrowserView;
-
+    private boolean isShow;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.browser_activity;
+        return R.layout.browser_no_title_bar_activity;
     }
 
 
@@ -70,6 +75,7 @@ public final class BrowserActivity extends MyActivity implements StatusAction, O
 
         String url = getString(IntentKey.URL);
         mBrowserView.loadUrl(url);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -96,12 +102,14 @@ public final class BrowserActivity extends MyActivity implements StatusAction, O
 
     @Override
     protected void onResume() {
+        isShow=true;
         mBrowserView.onResume();
         super.onResume();
     }
 
     @Override
     protected void onPause() {
+        isShow=false;
         mBrowserView.onPause();
         super.onPause();
     }
@@ -110,6 +118,9 @@ public final class BrowserActivity extends MyActivity implements StatusAction, O
     protected void onDestroy() {
         mBrowserView.onDestroy();
         super.onDestroy();
+        if(EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
     /**
@@ -190,5 +201,23 @@ public final class BrowserActivity extends MyActivity implements StatusAction, O
      */
     protected boolean isStatusBarDarkFont() {
         return false;
+    }
+
+    @Override
+    public boolean isStatusBarEnabled() {
+        // 使用沉浸式状态栏
+        return !super.isStatusBarEnabled();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageEvent messageEvent) {
+        if(messageEvent.getEventTag().equals(Const.EVENT_TAG_EXIT_SCENE)){
+            if(isShow){
+                finish();
+            }
+        }
+        if(messageEvent.getEventTag().equals(Const.EVENT_TAG_EXIT_ROOT_SCENE)){
+            finish();
+        }
     }
 }

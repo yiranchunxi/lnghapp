@@ -3,6 +3,7 @@ package com.siasun.rtd.lngh.common;
 import android.app.Application;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -192,6 +193,11 @@ public class MyApplication extends Application implements LifecycleOwner {
         }catch (Exception e){
             Log.e("test",e.toString());
         }
-
+        String token = SharedPreferenceUtil.getInstance().get(application, IntentKey.TOKEN);
+        Log.e("test",token);
+        Log.e("test","1111111111");
+        if(!TextUtils.isEmpty(token)){
+            Const.Tk=token;
+        }
     }
 }

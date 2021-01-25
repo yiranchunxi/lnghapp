@@ -109,8 +109,8 @@ public class LoginActivity extends MyActivity implements KeyboardWatcher.SoftKey
         // 填充传入的手机号和密码
         //mPhoneView.setText(getString(IntentKey.PHONE));
         //mPasswordView.setText(getString(IntentKey.PASSWORD));
-        mPhoneView.setText("18240349259");
-        mPasswordView.setText("p12345678");
+        mPhoneView.setText("18800001112");
+        mPasswordView.setText("p1234567");
     }
 
 
@@ -262,5 +262,12 @@ public class LoginActivity extends MyActivity implements KeyboardWatcher.SoftKey
     @Override
     public boolean isSwipeEnable() {
         return false;
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EasyHttp.cancel(this);
     }
 }

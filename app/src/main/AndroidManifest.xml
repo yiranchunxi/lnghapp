@@ -81,10 +81,14 @@
             android:name=".ui.activity.BrowserActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/web_title"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
-
+        <!-- 浏览器 -->
+        <activity
+            android:name=".ui.activity.BrowserNoTitleBarActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/web_title"
+            android:screenOrientation="portrait" />
         <!-- 登录界面 -->
         <activity
             android:name=".ui.activity.LoginActivity"

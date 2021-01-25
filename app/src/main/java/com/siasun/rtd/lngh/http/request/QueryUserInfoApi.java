@@ -9,7 +9,7 @@ public class QueryUserInfoApi implements IRequestApi,IRequestType {
 
     @Override
     public String getApi() {
-        return "user/login";
+        return "user/query_user_info";
     }
 
     private String requestBody;

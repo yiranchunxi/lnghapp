@@ -33,6 +33,7 @@ import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
 import com.hjq.toast.ToastUtils;
 import com.siasun.rtd.lngh.R;
+import com.siasun.rtd.lngh.http.jsinterface.LnghJsInterface;
 import com.siasun.rtd.lngh.ui.dialog.HintDialog;
 import com.siasun.rtd.lngh.ui.dialog.InputDialog;
 import com.siasun.rtd.lngh.ui.dialog.MessageDialog;
@@ -87,6 +88,8 @@ public final class BrowserView extends WebView implements ActivityAction {
         // 不显示滚动条
         setVerticalScrollBarEnabled(false);
         setHorizontalScrollBarEnabled(false);
+
+        addJavascriptInterface(new LnghJsInterface(), "jsObject");
     }
 
     /**

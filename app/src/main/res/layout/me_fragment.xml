@@ -72,7 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="50dp"
+                        android:layout_marginStart="30dp"
                         android:layout_marginTop="50dp"
                         android:layout_toRightOf="@+id/avatar"
                         android:visibility="invisible">
@@ -152,35 +152,10 @@
                             android:visibility="invisible"/>
 
 
-                        <LinearLayout
-                            android:id="@+id/ll_name_pass_go_verify"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:background="@drawable/shape_my_go_verify"
-                            android:paddingLeft="9dp"
-                            android:paddingTop="1dp"
-                            android:paddingBottom="1dp"
-                            android:layout_marginLeft="10dp"
-                            android:visibility="invisible">
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="完善认证"
-                                android:textColor="@android:color/white"
-                                android:textSize="11sp"/>
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="18dp"
-                                android:layout_height="14dp"
-                                android:background="@drawable/icon_me_next" />
-                        </LinearLayout>
-
                     </LinearLayout>
 
                     <!-- 扫描二维码 -->
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/iv_discovery_scan"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
@@ -188,6 +163,16 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="5dp"/>
+                    <!-- 提示认证 -->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_tooltip"
+                        android:layout_width="90dp"
+                        android:layout_height="32dp"
+                        android:layout_marginLeft="93dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_toRightOf="@id/avatar"
+                        android:src="@drawable/icon_me_tooltip"
+                        android:visibility="invisible"/>
                 </RelativeLayout>
             </RelativeLayout>
 

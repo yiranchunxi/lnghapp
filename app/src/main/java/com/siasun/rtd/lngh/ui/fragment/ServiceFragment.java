@@ -12,6 +12,9 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.hjq.base.BaseDialog;
+import com.hjq.http.EasyHttp;
+import com.hjq.http.listener.HttpCallback;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
@@ -25,12 +28,17 @@ import com.siasun.rtd.lngh.common.MyFragment;
 import com.siasun.rtd.lngh.http.bean.CertificationInfo;
 import com.siasun.rtd.lngh.http.bean.MessageEvent;
 import com.siasun.rtd.lngh.http.prefs.Const;
+import com.siasun.rtd.lngh.http.prefs.MD5Utils;
+import com.siasun.rtd.lngh.http.prefs.PBOCDES;
 import com.siasun.rtd.lngh.http.prefs.SharedPreferenceUtil;
+import com.siasun.rtd.lngh.http.request.QueryUserIdApi;
+import com.siasun.rtd.lngh.http.response.QueryUserIdResponse;
 import com.siasun.rtd.lngh.other.IntentKey;
 import com.siasun.rtd.lngh.ui.activity.BrowserActivity;
 import com.siasun.rtd.lngh.ui.activity.BrowserNoTitleBarActivity;
 import com.siasun.rtd.lngh.ui.activity.LoginActivity;
 import com.siasun.rtd.lngh.ui.activity.MainTabActivity;
+import com.siasun.rtd.lngh.ui.dialog.MessageDialog;
 import com.siasun.rtd.lngh.widget.BrowserView;
 import com.siasun.rtd.lngh.widget.HintLayout;
 
@@ -40,7 +48,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import okhttp3.Call;
 
 /**
  * 服务fragment
@@ -67,7 +79,7 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
 
     @Override
     protected void initView() {
-        toast("initView");
+        //toast("initView");
         mHintLayout = findViewById(R.id.hl_browser_hint);
         mProgressBar = findViewById(R.id.pb_browser_progress);
         mRefreshLayout = findViewById(R.id.sl_browser_refresh);
@@ -114,7 +126,7 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
     @Override
     public void onDestroy() {
         if(mBrowserView!=null){
-            toast("onDestroy()");
+            mBrowserView.onDestroy();
         }
         super.onDestroy();
     }
@@ -215,7 +227,7 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
                 certificationInfo.code=SharedPreferenceUtil.getInstance().get(getAttachActivity(),"identification");
                 certificationInfo.phone=SharedPreferenceUtil.getInstance().get(getAttachActivity(),IntentKey.PHONE);
                 try{
-                    Log.e("test",URLEncoder.encode(new Gson().toJson(certificationInfo),"utf-8"));
+                    //Log.e("test",URLEncoder.encode(new Gson().toJson(certificationInfo),"utf-8"));
                     BrowserActivity.start(getAttachActivity(),"http://182.92.172.248/xflg_h5/index.html?message="+ URLEncoder.encode(new Gson().toJson(certificationInfo),"utf-8"));
                 }catch (UnsupportedEncodingException e){
                     toast("编码信息错误,请联系管理员");
@@ -267,8 +279,16 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
                     });
 
 
+        }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_LOGIN_SCENE)){
+            toast("请登录");
+        }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_PSYCOUNSELING_SCENE)){
+            show_psycounseling_scene();
+        }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_STAFF_BOOKSTORE_SCENE)){
+            BrowserActivity.start(getAttachActivity(),"http://djk.chaoxing.com/index_5856.html");
         }
     }
+
+
 
 
     @Override
@@ -277,5 +297,85 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
         if(EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
+        EasyHttp.cancel(this);
     }
+
+
+    private void show_psycounseling_scene(){
+
+        showDialog();
+        EasyHttp.post(this)
+                .api(new QueryUserIdApi().setToken(Const.Tk))
+                .request(new HttpCallback<QueryUserIdResponse>(this){
+                    @Override
+                    public void onSucceed(QueryUserIdResponse result) {
+                        hideDialog();
+                        if(result.result.equals("0")){
+                            StringBuilder builder=new StringBuilder("http://shehui.pjxyys.com/app/pages.action?accessKey=xyyskj&dType=&");
+                            builder.append("&mcode=");
+                            builder.append(MD5Utils.MD5(result.phone_number).toLowerCase());
+
+                            Log.e("test",builder.toString());
+                            if(TextUtils.isEmpty( SharedPreferenceUtil.getInstance().get(getAttachActivity(), Const.AUTH_PSY))) {
+                                new MessageDialog.Builder(getAttachActivity())
+                                        // 标题可以不用填写
+                                        .setTitle("授权管理")
+                                        // 内容必须要填写
+                                        .setMessage("心理咨询请求获取以下权限:\n获得您的姓名、手机号")
+                                        // 确定按钮文本
+                                        .setConfirm(getString(R.string.auth_confirm))
+                                        // 设置 null 表示不显示取消按钮
+                                        .setCancel(getString(R.string.auth_refuse))
+                                        // 设置点击按钮后不关闭对话框
+                                        //.setAutoDismiss(false)
+                                        .setListener(new MessageDialog.OnListener() {
+
+                                            @Override
+                                            public void onConfirm(BaseDialog dialog) {
+                                                SharedPreferenceUtil.getInstance().put(getAttachActivity(), Const.AUTH_PSY, Const.AUTH_PSY);
+                                                if (!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(), "user_name"))) {
+                                                    builder.append("&name=");
+                                                    try {
+                                                        builder.append(URLEncoder.encode(SharedPreferenceUtil.getInstance().get(getAttachActivity(), "user_name"), "utf-8"));
+                                                    } catch (UnsupportedEncodingException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                                builder.append("&phone=");
+                                                builder.append(result.phone_number);
+                                                BrowserActivity.start(getAttachActivity(), builder.toString());
+                                            }
+
+                                            @Override
+                                            public void onCancel(BaseDialog dialog) {
+                                                BrowserActivity.start(getAttachActivity(), builder.toString());
+                                            }
+                                        })
+                                        .show();
+                            }else{
+                                if (!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(), "user_name"))) {
+                                    builder.append("&name=");
+                                    try {
+                                        builder.append(URLEncoder.encode(SharedPreferenceUtil.getInstance().get(getAttachActivity(), "user_name"), "utf-8"));
+                                    } catch (UnsupportedEncodingException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                builder.append("&phone=");
+                                builder.append(result.phone_number);
+                                BrowserActivity.start(getAttachActivity(), builder.toString());
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onEnd(Call call) {
+                        super.onEnd(call);
+                        hideDialog();
+                    }
+                });
+    }
+
+
 }

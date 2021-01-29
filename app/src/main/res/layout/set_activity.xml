@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/my_setting"
+        app:titleColor="@color/white"/>
+
+    <com.hjq.widget.layout.SettingBar
+        android:id="@+id/sb_setting_notify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:bar_leftText="@string/setting_notify"
+        app:bar_rightIcon="@drawable/arrows_right_ic"
+        android:visibility="gone"/>
+
+    <com.hjq.widget.layout.SettingBar
+        android:id="@+id/sb_setting_clear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bar_leftText="@string/setting_clear"
+        app:bar_rightIcon="@drawable/arrows_right_ic" />
+
+
+
+    <com.hjq.widget.layout.SettingBar
+        android:id="@+id/sb_setting_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:bar_leftText="@string/setting_update"
+        app:bar_rightIcon="@drawable/arrows_right_ic" />
+
+    <com.hjq.widget.layout.SettingBar
+        android:id="@+id/sb_setting_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bar_leftText="@string/setting_about"
+        app:bar_rightIcon="@drawable/arrows_right_ic" />
+
+    <com.hjq.widget.layout.SettingBar
+        android:id="@+id/sb_setting_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:bar_leftColor="@color/red"
+        app:bar_leftText="@string/setting_exit" />
+</LinearLayout>

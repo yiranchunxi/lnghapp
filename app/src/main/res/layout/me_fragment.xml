@@ -176,6 +176,121 @@
                 </RelativeLayout>
             </RelativeLayout>
 
+            <!--我的收藏 -->
+            <RelativeLayout
+                style="@style/settingButtonBackground"
+                android:layout_marginTop="15dp"
+                >
+                <LinearLayout
+                    style="@style/settingButtonContainerLayout"
+                    android:id="@+id/myFavoriteButton"
+                    >
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/settingImageView"
+                        android:src="@drawable/icon_me_favorite"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/settingTextView"
+                        android:text="@string/my_favorite"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+            <include layout="@layout/view_setting_cell_divider" />
+            <!--收货地址 -->
+            <RelativeLayout
+                style="@style/settingButtonBackground"
+                >
+                <LinearLayout
+                    style="@style/settingButtonContainerLayout"
+                    android:id="@+id/myAddressManagerButton"
+                    >
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/settingImageView"
+                        android:src="@drawable/icon_me_address"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/settingTextView"
+                        android:text="@string/my_addressManager"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+            <include layout="@layout/view_setting_cell_divider" />
+            <!--系统消息 -->
+            <RelativeLayout
+                style="@style/settingButtonBackground"
+                >
+                <LinearLayout
+                    style="@style/settingButtonContainerLayout"
+                    android:id="@+id/mySystemInfoButton"
+                    >
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/settingImageView"
+                        android:src="@drawable/icon_me_suggestion"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/settingTextView"
+                        android:text="@string/my_system_info"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!--联系我们 -->
+            <RelativeLayout
+                style="@style/settingButtonBackground"
+                android:layout_marginTop="15dp"
+                >
+                <LinearLayout
+                    style="@style/settingButtonContainerLayout"
+                    android:id="@+id/myContactUsButton"
+                    >
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/settingImageView"
+                        android:src="@drawable/icon_me_contact"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/settingTextView"
+                        android:text="@string/my_contactUs"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+            <include layout="@layout/view_setting_cell_divider" />
+            <!--意见反馈 -->
+            <RelativeLayout
+                style="@style/settingButtonBackground"
+                >
+                <LinearLayout
+                    style="@style/settingButtonContainerLayout"
+                    android:id="@+id/myFeedBackButton"
+                    >
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/settingImageView"
+                        android:src="@drawable/icon_me_feedback"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/settingTextView"
+                        android:text="@string/my_feedBack"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+            <!--设置 -->
+            <RelativeLayout
+                style="@style/settingButtonBackground"
+                android:layout_marginTop="15dp"
+                >
+                <LinearLayout
+                    style="@style/settingButtonContainerLayout"
+                    android:id="@+id/mySettingButton"
+                    >
+                    <androidx.appcompat.widget.AppCompatImageView
+                        style="@style/settingImageView"
+                        android:src="@drawable/icon_me_setting"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/settingTextView"
+                        android:text="@string/my_setting"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

@@ -16,6 +16,7 @@ public class LnghJsInterface {
     public String getToken(String userName){
         Log.e("test","getToken");
         try {
+            Log.e("test",Const.Tk);
             return Const.Tk.replace("\n", "");
         }catch (Exception e){
 
@@ -45,6 +46,11 @@ public class LnghJsInterface {
         EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_WEB_SCENE,url));
     }
 
+    @JavascriptInterface
+    public void showWebScene(String url,boolean hideNavigationBar,String mid){
+        // hideNavigationBar  true 显示header false不显示 header
+        EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_WEB_SCENE,url));
+    }
 
     /**
      * 调用打电话
@@ -55,17 +61,58 @@ public class LnghJsInterface {
         Log.e("test",phoneNum);
         EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_CALL_SCENE,phoneNum));
     }
-
+    /**
+     * 关闭当前网页
+     */
     @JavascriptInterface
     public void exitScene(){
         Log.e("test","exitScene");
         EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_EXIT_SCENE,""));
     }
 
+    /**
+     * 关闭所有网页
+     */
     @JavascriptInterface
     public void exitRootScene(){
         Log.e("test","exitRootScene");
         EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_EXIT_ROOT_SCENE,""));
     }
 
+    /**
+     * 去登录
+     */
+    @JavascriptInterface
+    public void showLoginScene(String msg){
+        Log.e("test","showLoginScene");
+        EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_LOGIN_SCENE,""));
+    }
+
+
+    /**
+     * 跳转心理咨询
+     */
+    @JavascriptInterface
+    public void showPsyCounselingScene(){
+        Log.e("test","showPsyCounselingScene()");
+        EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_PSYCOUNSELING_SCENE,""));
+    }
+
+    /**
+     * 跳转法律援助
+     */
+    @JavascriptInterface
+    public void showLegalAidScene(){
+        Log.e("test","showLegalAidScene()");
+        EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_LEGAL_AID_SCENE,""));
+    }
+
+    /**
+     * 点击跳转职工书屋
+     */
+    @JavascriptInterface
+    public void showStaffBookstoreScene(){
+        Log.e("test","showStaffBookstoreScene()");
+        EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_STAFF_BOOKSTORE_SCENE,""));
+    }
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/push_title"
+        app:titleColor="@color/white"/>
+
+
+    <com.hjq.widget.layout.SettingBar
+        android:id="@+id/sb_setting_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:bar_leftText="@string/push_info">
+
+        <com.hjq.widget.view.SwitchButton
+            android:id="@+id/sb_push_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginHorizontal="15dp"
+            android:checked="true"/>
+
+    </com.hjq.widget.layout.SettingBar>
+
+    <com.hjq.widget.layout.SettingBar
+        android:id="@+id/sb_setting_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bar_leftText="@string/push_service">
+
+        <com.hjq.widget.view.SwitchButton
+            android:id="@+id/sb_push_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginHorizontal="15dp"
+            android:checked="true"/>
+
+    </com.hjq.widget.layout.SettingBar>
+    <com.hjq.widget.layout.SettingBar
+        android:id="@+id/sb_setting_union"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bar_leftText="@string/push_union">
+
+        <com.hjq.widget.view.SwitchButton
+            android:id="@+id/sb_push_union"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginHorizontal="15dp"
+            android:checked="true"/>
+
+    </com.hjq.widget.layout.SettingBar>
+
+</LinearLayout>

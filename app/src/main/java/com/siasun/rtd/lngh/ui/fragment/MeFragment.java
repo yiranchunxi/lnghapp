@@ -24,8 +24,15 @@ import com.siasun.rtd.lngh.http.request.QueryUserInfoApi;
 import com.siasun.rtd.lngh.http.response.LoginResponseBean;
 import com.siasun.rtd.lngh.http.response.QueryUserInfoResponseDTO;
 import com.siasun.rtd.lngh.other.IntentKey;
+import com.siasun.rtd.lngh.ui.activity.BrowserActivity;
+import com.siasun.rtd.lngh.ui.activity.BrowserNoTitleBarActivity;
+import com.siasun.rtd.lngh.ui.activity.ContactUsActivity;
+import com.siasun.rtd.lngh.ui.activity.FeedBackActivity;
 import com.siasun.rtd.lngh.ui.activity.LoginActivity;
 import com.siasun.rtd.lngh.ui.activity.MainTabActivity;
+import com.siasun.rtd.lngh.ui.activity.MyCollectActivity;
+import com.siasun.rtd.lngh.ui.activity.MyMessageActivity;
+import com.siasun.rtd.lngh.ui.activity.SetActivity;
 
 /**
  * 我的fragment
@@ -59,6 +66,9 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
         iv_tooltip=findViewById(R.id.iv_tooltip);
         setOnClickListener(mGotoLoginButton);
 
+        setOnClickListener(R.id.myAddressManagerButton,R.id.myContactUsButton,R.id.myFavoriteButton,R.id.myFeedBackButton,
+        R.id.mySettingButton,R.id.mySystemInfoButton);
+
 
         set=new AnimatorSet();
         set.playTogether(
@@ -78,7 +88,41 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
         switch (v.getId()) {
             case R.id.gotoLoginButton:
                 startActivity(LoginActivity.class);
-
+                break;
+            case R.id.mySettingButton:
+                startActivity(SetActivity.class);
+                break;
+            case R.id.myContactUsButton:
+                startActivity(ContactUsActivity.class);
+                break;
+            case R.id.myFeedBackButton:
+                if(!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(),IntentKey.TOKEN))){
+                    startActivity(FeedBackActivity.class);
+                }else{
+                    toast("请先登录");
+                }
+                break;
+            case R.id.myAddressManagerButton:
+                if(!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(),IntentKey.TOKEN))){
+                    BrowserNoTitleBarActivity.start(getAttachActivity(), Const.URL_LNGH_SERVER+"/lgh/views/address/address.html");
+                }else{
+                    toast("请先登录");
+                }
+                break;
+            case R.id.myFavoriteButton:
+                if(!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(),IntentKey.TOKEN))){
+                    startActivity(MyCollectActivity.class);
+                }else{
+                    toast("请先登录");
+                }
+                break;
+            case R.id.mySystemInfoButton:
+                if(!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(),IntentKey.TOKEN))){
+                    startActivity(MyMessageActivity.class);
+                }else{
+                    toast("请先登录");
+                }
+                break;
             default:
                 break;
         }
@@ -122,6 +166,7 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
             iv_me_union_medal.setVisibility(View.INVISIBLE);
             iv_tooltip.setVisibility(View.VISIBLE);
             set.setDuration(500).start();
+            mGotoLoginButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -195,5 +240,11 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
                 });
 
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EasyHttp.cancel(this);
     }
 }

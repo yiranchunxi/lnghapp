@@ -75,4 +75,52 @@
     <string name="common_step_next">下一步</string>
     <string name="common_step_complete">完成</string>
     <string name="common_step_commit">提交</string>
+    <!-- 我的-->
+    <string name="my_favorite">我的收藏</string>
+    <string name="my_addressManager">收货地址</string>
+    <string name="my_contactUs">联系我们</string>
+    <string name="my_system_info">系统消息</string>
+    <string name="my_feedBack">意见反馈</string>
+    <string name="my_setting">设置</string>
+
+    <string name="setting_exit">退出登录</string>
+    <string name="setting_about">关于辽宁工会</string>
+    <string name="setting_update">检查更新</string>
+    <string name="setting_notify">新消息通知</string>
+    <string name="setting_clear">清空缓存</string>
+
+    <string name="auth_confirm">允许</string>
+    <string name="auth_refuse">拒绝</string>
+
+    <string name="about_title">关于我们</string>
+
+    <string name="tv_about_us_deal">《辽宁工会软件许可及服务协议》</string>
+    <string name="tv_about_us_and">和</string>
+    <string name="tv_about_us_protect">《辽宁工会隐私保护指引》</string>
+    <string name="tv_about_us_belong">辽宁省总工会 版权所有</string>
+    <string name="tv_about_us">Copyright@2021辽宁省总工会.AllRightsReserved</string>
+    <string name="about_us_introduce">　　辽宁工会是由辽宁省总工会为职工提供便利服务的客户端应用，辽宁工会让职工可以在线读书，享受律师咨询，保障个人利益，解决工作或生活中遇到的问题，满足职工的需求，并且还可发起工会活动，促进职工工作、生活线上线下的有机融合。提供机构介绍、新闻资讯、风采展示、工会服务、活动组织、工会圈等服务。辽宁工会将整合优势资源，为职工提供更多个性化的服务。让职工满意是我们不断地追求。</string>
+
+    <string name="push_title">推送设置</string>
+    <string name="push_info">资讯更新</string>
+    <string name="push_service">服务提醒</string>
+    <string name="push_union">工会圈提醒</string>
+
+    <string name="contactUs">联系我们</string>
+
+    <string name="contact_us_web">官方网站</string>
+    <string name="contact_us_wx">微信公众号</string>
+    <string name="contact_us_mail">邮箱</string>
+    <string name="contact_us_tel">服务电话</string>
+
+
+    <string name="tv_contact_us_web">www.lnszgh.org</string>
+    <string name="tv_contact_us_wx">辽宁省总工会</string>
+    <string name="tv_contact_us_mail">lnszwlb@126.com</string>
+    <string name="tv_contact_us_tel">12351</string>
+
+    <string name="feedBack">意见反馈</string>
+    <string name="feedback_title">请留下您的宝贵意见</string>
+    <string name="feedback_hint">请留下联系方式(手机，qq号)选填,50字内</string>
+    <string name="feedback_submit">提交反馈</string>
 </resources>

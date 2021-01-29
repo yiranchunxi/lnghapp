@@ -4,9 +4,10 @@ buildscript {
         maven{ url'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
         maven { url 'https://jitpack.io' }
+        //hms
+        maven {url 'http://developer.huawei.com/repo/'}
         jcenter()
         google()
-
     }
     // Studio 插件推荐：https://github.com/getActivity/StudioPlugins
     dependencies {
@@ -15,6 +16,8 @@ buildscript {
         classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
         // 资源混淆插件：https://github.com/shwenzhang/AndResGuard
         classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.17'
+        //huawei
+        //classpath 'com.huawei.agconnect:agcp:1.4.1.300'
     }
 }
 
@@ -28,6 +31,8 @@ allprojects {
         maven { url 'https://dl.bintray.com/getactivity/maven/' }
         maven { url 'https://dl.bintray.com/umsdk/release' }
         maven { url 'https://dl.google.com/dl/android/maven2/' }
+        //hms
+        maven {url 'http://developer.huawei.com/repo/'}
         //maven { url 'https://maven.google.com' }
         maven { url 'https://jitpack.io' }
         jcenter()

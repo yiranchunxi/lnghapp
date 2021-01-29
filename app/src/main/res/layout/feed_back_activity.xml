@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/feedBack"
+        app:titleColor="@color/white"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colore0e0e0">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color595959"
+                android:text="@string/feedback_title"
+                android:textSize="17sp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"/>
+
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_edit_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0/500"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="20dp"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_feedback_info"
+                android:layout_below="@+id/tv_edit_count"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@android:color/white"
+                android:layout_marginTop="5dp"
+                android:gravity="top"
+                android:padding="5dp"
+                android:scrollbars="vertical"
+                android:textSize="16sp"
+                android:maxLength="500"
+                />
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_feedback_connects"
+                android:layout_below="@+id/et_feedback_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:hint="@string/feedback_hint"
+                android:background="@android:color/white"
+                android:textSize="16sp"
+                android:paddingLeft="20dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:maxLength="50"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_feedback_submit"
+                android:layout_below="@id/et_feedback_connects"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="20dp"
+                android:elevation="4dp"
+                android:textSize="16sp"
+                android:text="@string/feedback_submit"
+                />
+        </RelativeLayout>
+    </ScrollView>
+
+
+</LinearLayout>

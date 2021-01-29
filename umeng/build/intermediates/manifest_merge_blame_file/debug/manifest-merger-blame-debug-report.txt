@@ -62,13 +62,13 @@
 41        <meta-data
 42            android:name="WX_APPID"
 42-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:35:13-36
-43            android:value="wxd35706cc9f46114c" />
+43            android:value="wx3d793f90ed105e3e" />
 43-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:36:13-40
 44        <!-- 微信 Key（请在 Gradle 中配置，请不要在此处修改） -->
 45        <meta-data
 46            android:name="WX_APPKEY"
 46-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:39:13-37
-47            android:value="0c8c7cf831dd135a32b3e395ea459b5a" />
+47            android:value="1aaea8123b5b4b9da7dbafd68f844187" />
 47-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:40:13-41
 48
 49        <!-- 友盟社会化 -->

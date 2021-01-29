@@ -37,10 +37,12 @@ import com.siasun.rtd.lngh.other.AppConfig;
 import com.siasun.rtd.lngh.other.CrashHandler;
 import com.siasun.rtd.lngh.other.IntentKey;
 import com.siasun.rtd.lngh.umeng.UmengClient;
+import com.tencent.bugly.Bugly;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.IOException;
 import java.util.UUID;
+
 
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -71,6 +73,8 @@ public class MyApplication extends Application implements LifecycleOwner {
      * 初始化一些第三方框架
      */
     public static void initSdk(Application application) {
+        //JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        //JPushInterface.init(application);     		// 初始化 JPush
 
         // 吐司工具类
         ToastUtils.init(application);
@@ -110,8 +114,8 @@ public class MyApplication extends Application implements LifecycleOwner {
         UmengClient.init(application);
 
         // Bugly 异常捕捉
-        CrashReport.initCrashReport(application, AppConfig.getBuglyId(), AppConfig.isDebug());
-
+        //CrashReport.initCrashReport(application, AppConfig.getBuglyId(), AppConfig.isDebug());
+        Bugly.init(application, AppConfig.getBuglyId(), false);
         // 设置全局的 Header 构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> new ClassicsHeader(context).setEnableLastTime(false));
         // 设置全局的 Footer 构建器

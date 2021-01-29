@@ -40,11 +40,11 @@
         <!-- 微信 AppId（请在 Gradle 中配置，请不要在此处修改） -->
         <meta-data
             android:name="WX_APPID"
-            android:value="wxd35706cc9f46114c" />
+            android:value="wx3d793f90ed105e3e" />
         <!-- 微信 Key（请在 Gradle 中配置，请不要在此处修改） -->
         <meta-data
             android:name="WX_APPKEY"
-            android:value="0c8c7cf831dd135a32b3e395ea459b5a" />
+            android:value="1aaea8123b5b4b9da7dbafd68f844187" />
 
         <!-- 友盟社会化 -->
 

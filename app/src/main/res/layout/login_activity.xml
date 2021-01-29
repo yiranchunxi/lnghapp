@@ -16,7 +16,7 @@
         android:layout_height="50dp"
         app:backButton="false"
         app:barStyle="transparent"
-        app:rightColor="@color/colorAccent"
+        app:rightColor="@color/colorPrimaryRed"
         app:rightTitle="@string/login_register"
         app:title="" />
 
@@ -76,7 +76,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="60dp"
             android:text="@string/login_forget"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorPrimaryRed" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login_commit"

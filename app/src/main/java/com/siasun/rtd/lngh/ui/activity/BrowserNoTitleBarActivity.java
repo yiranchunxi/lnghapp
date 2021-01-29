@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -11,6 +12,9 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
+import com.hjq.base.BaseDialog;
+import com.hjq.http.EasyHttp;
+import com.hjq.http.listener.HttpCallback;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -21,13 +25,26 @@ import com.siasun.rtd.lngh.aop.DebugLog;
 import com.siasun.rtd.lngh.common.MyActivity;
 import com.siasun.rtd.lngh.http.bean.MessageEvent;
 import com.siasun.rtd.lngh.http.prefs.Const;
+import com.siasun.rtd.lngh.http.prefs.MD5Utils;
+import com.siasun.rtd.lngh.http.prefs.PBOCDES;
+import com.siasun.rtd.lngh.http.prefs.SharedPreferenceUtil;
+import com.siasun.rtd.lngh.http.request.QueryUserIdApi;
+import com.siasun.rtd.lngh.http.response.QueryUserIdResponse;
 import com.siasun.rtd.lngh.other.IntentKey;
+import com.siasun.rtd.lngh.ui.dialog.MessageDialog;
 import com.siasun.rtd.lngh.widget.BrowserView;
 import com.siasun.rtd.lngh.widget.HintLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import okhttp3.Call;
 
 public final class BrowserNoTitleBarActivity extends MyActivity implements StatusAction, OnRefreshListener {
 
@@ -219,5 +236,91 @@ public final class BrowserNoTitleBarActivity extends MyActivity implements Statu
         if(messageEvent.getEventTag().equals(Const.EVENT_TAG_EXIT_ROOT_SCENE)){
             finish();
         }
+
+        if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_LEGAL_AID_SCENE)){
+            show_legal_aid_scene();
+        }
+    }
+
+    private void show_legal_aid_scene() {
+
+        showDialog();
+        EasyHttp.post(this)
+                .api(new QueryUserIdApi().setToken(Const.Tk))
+                .request(new HttpCallback<QueryUserIdResponse>(this){
+                    @Override
+                    public void onSucceed(QueryUserIdResponse result) {
+                        hideDialog();
+                        if(result.result.equals("0")){
+                            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                            StringBuilder signkey=new StringBuilder();
+                            signkey.append(PBOCDES.pboc3DESEncryptForLongWithString("740a71055f36a56bea092475c65324f6",result.u_id));
+                            signkey.append("6dcb1701-f6bb-47ae-9b64-abb46379784e");
+                            signkey.append(sdf.format(new Date()));
+                            StringBuilder builder=new StringBuilder("http://123.56.30.40:9997/ln/fotu?uid=");
+                            builder.append(PBOCDES.pboc3DESEncryptForLongWithString("740a71055f36a56bea092475c65324f6",result.u_id));
+                            builder.append("&signkey=");
+                            builder.append(MD5Utils.MD5(signkey.toString()).toLowerCase());
+
+                            Log.e("test",builder.toString());
+                            if(TextUtils.isEmpty( SharedPreferenceUtil.getInstance().get(BrowserNoTitleBarActivity.this, Const.AUTH_LEGAL))) {
+                                new MessageDialog.Builder(BrowserNoTitleBarActivity.this)
+                                        // 标题可以不用填写
+                                        .setTitle("授权管理")
+                                        // 内容必须要填写
+                                        .setMessage("法律援助请求获取以下权限:\n获得您的姓名、手机号")
+                                        // 确定按钮文本
+                                        .setConfirm(getString(R.string.auth_confirm))
+                                        // 设置 null 表示不显示取消按钮
+                                        .setCancel(getString(R.string.auth_refuse))
+                                        // 设置点击按钮后不关闭对话框
+                                        //.setAutoDismiss(false)
+                                        .setListener(new MessageDialog.OnListener() {
+
+                                            @Override
+                                            public void onConfirm(BaseDialog dialog) {
+                                                SharedPreferenceUtil.getInstance().put(BrowserNoTitleBarActivity.this, Const.AUTH_LEGAL, Const.AUTH_LEGAL);
+                                                if (!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(BrowserNoTitleBarActivity.this, "user_name"))) {
+                                                    builder.append("&name=");
+                                                    try {
+                                                        builder.append(URLEncoder.encode(SharedPreferenceUtil.getInstance().get(BrowserNoTitleBarActivity.this, "user_name"), "utf-8"));
+                                                    } catch (UnsupportedEncodingException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                                builder.append("&phone=");
+                                                builder.append(result.phone_number);
+                                                BrowserActivity.start(BrowserNoTitleBarActivity.this, builder.toString());
+                                            }
+
+                                            @Override
+                                            public void onCancel(BaseDialog dialog) {
+                                                BrowserActivity.start(BrowserNoTitleBarActivity.this, builder.toString());
+                                            }
+                                        })
+                                        .show();
+                            }else{
+                                if (!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(BrowserNoTitleBarActivity.this, "user_name"))) {
+                                    builder.append("&name=");
+                                    try {
+                                        builder.append(URLEncoder.encode(SharedPreferenceUtil.getInstance().get(BrowserNoTitleBarActivity.this, "user_name"), "utf-8"));
+                                    } catch (UnsupportedEncodingException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                builder.append("&phone=");
+                                builder.append(result.phone_number);
+                                BrowserActivity.start(BrowserNoTitleBarActivity.this, builder.toString());
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onEnd(Call call) {
+                        super.onEnd(call);
+                        hideDialog();
+                    }
+                });
     }
 }

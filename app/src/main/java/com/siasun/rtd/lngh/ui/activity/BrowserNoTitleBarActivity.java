@@ -30,6 +30,7 @@ import com.siasun.rtd.lngh.http.prefs.PBOCDES;
 import com.siasun.rtd.lngh.http.prefs.SharedPreferenceUtil;
 import com.siasun.rtd.lngh.http.request.QueryUserIdApi;
 import com.siasun.rtd.lngh.http.response.QueryUserIdResponse;
+import com.siasun.rtd.lngh.other.ClearInfoLogin;
 import com.siasun.rtd.lngh.other.IntentKey;
 import com.siasun.rtd.lngh.ui.dialog.MessageDialog;
 import com.siasun.rtd.lngh.widget.BrowserView;
@@ -236,7 +237,11 @@ public final class BrowserNoTitleBarActivity extends MyActivity implements Statu
         if(messageEvent.getEventTag().equals(Const.EVENT_TAG_EXIT_ROOT_SCENE)){
             finish();
         }
-
+        if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_LOGIN_SCENE)){
+            ClearInfoLogin.clearAndLogin(this);
+            toast("请登录");
+            startActivity(LoginActivity.class);
+        }
         if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_LEGAL_AID_SCENE)){
             show_legal_aid_scene();
         }

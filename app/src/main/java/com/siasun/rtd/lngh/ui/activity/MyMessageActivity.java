@@ -23,6 +23,7 @@ import com.siasun.rtd.lngh.http.request.MyMessageApi;
 import com.siasun.rtd.lngh.http.request.QueryUserInfoApi;
 import com.siasun.rtd.lngh.http.response.MyMessageResponse;
 import com.siasun.rtd.lngh.http.response.QueryUserInfoResponseDTO;
+import com.siasun.rtd.lngh.other.ClearInfoLogin;
 import com.siasun.rtd.lngh.ui.adapter.MessageAdapter;
 import com.siasun.rtd.lngh.ui.adapter.NewsAdapter;
 
@@ -63,7 +64,7 @@ public class MyMessageActivity extends MyActivity implements OnRefreshLoadMoreLi
                 .api(new MyMessageApi()
                         .setRequestBody(requestMsg))
 
-                .request(new DecryptCallBack<String>(this, new DecryptCallBack.ChildrenCallBack() {
+                .request(new DecryptCallBack(this, new DecryptCallBack.ChildrenCallBack() {
                     @Override
                     public void onSucceed(String result) {
                         toast(result);
@@ -84,12 +85,16 @@ public class MyMessageActivity extends MyActivity implements OnRefreshLoadMoreLi
                             mRefreshLayout.finishLoadMore();
                         }
                     }
-                }) {
+
                     @Override
                     public void onFail(Exception e) {
-                        toast(e.toString());
+                        toast(e.getMessage());
+                        if(e.toString().contains("系统检测到您的账号在其他设备登录")){
+                            ClearInfoLogin.clearAndLogin(MyMessageActivity.this);
+                            startActivity(LoginActivity.class);
+                        }
                     }
-                });
+                }));
     }
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {

@@ -72,7 +72,7 @@ public class SetActivity  extends MyActivity {
                         .api(new LogOutApi()
                                 .setRequestBody(requestMsg))
 
-                        .request(new DecryptCallBack<String>(this, new DecryptCallBack.ChildrenCallBack() {
+                        .request(new DecryptCallBack(this, new DecryptCallBack.ChildrenCallBack() {
                             @Override
                             public void onSucceed(String result) {
                                 toast(result);
@@ -97,12 +97,12 @@ public class SetActivity  extends MyActivity {
                                     toast(bean.msg);
                                 }
                             }
-                        }) {
+
                             @Override
                             public void onFail(Exception e) {
-                                toast(e.toString());
+
                             }
-                        });
+                        }));
                 break;
             case R.id.sb_setting_clear:
 

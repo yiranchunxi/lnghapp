@@ -13,6 +13,7 @@ import com.hjq.http.EasyHttp;
 import com.siasun.rtd.lngh.R;
 import com.siasun.rtd.lngh.aop.SingleClick;
 import com.siasun.rtd.lngh.common.MyFragment;
+import com.siasun.rtd.lngh.http.bean.MessageEvent;
 import com.siasun.rtd.lngh.http.bean.QueryUserInfoRequestDTO;
 import com.siasun.rtd.lngh.http.callback.DecryptCallBack;
 import com.siasun.rtd.lngh.http.glide.GlideApp;
@@ -23,6 +24,7 @@ import com.siasun.rtd.lngh.http.request.LoginApi;
 import com.siasun.rtd.lngh.http.request.QueryUserInfoApi;
 import com.siasun.rtd.lngh.http.response.LoginResponseBean;
 import com.siasun.rtd.lngh.http.response.QueryUserInfoResponseDTO;
+import com.siasun.rtd.lngh.other.ClearInfoLogin;
 import com.siasun.rtd.lngh.other.IntentKey;
 import com.siasun.rtd.lngh.ui.activity.BrowserActivity;
 import com.siasun.rtd.lngh.ui.activity.BrowserNoTitleBarActivity;
@@ -33,6 +35,8 @@ import com.siasun.rtd.lngh.ui.activity.MainTabActivity;
 import com.siasun.rtd.lngh.ui.activity.MyCollectActivity;
 import com.siasun.rtd.lngh.ui.activity.MyMessageActivity;
 import com.siasun.rtd.lngh.ui.activity.SetActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 我的fragment
@@ -64,7 +68,7 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
         iv_me_union_medal=findViewById(R.id.iv_me_union_medal);
         avatar=findViewById(R.id.avatar);
         iv_tooltip=findViewById(R.id.iv_tooltip);
-        setOnClickListener(mGotoLoginButton);
+        setOnClickListener(mGotoLoginButton,mGotoVerifyButton);
 
         setOnClickListener(R.id.myAddressManagerButton,R.id.myContactUsButton,R.id.myFavoriteButton,R.id.myFeedBackButton,
         R.id.mySettingButton,R.id.mySystemInfoButton);
@@ -86,6 +90,9 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.gotoVerifyButton:
+                EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_MEMBER_CERTIFICATION_SCENE,"showMemberCertificationScene"));
+                break;
             case R.id.gotoLoginButton:
                 startActivity(LoginActivity.class);
                 break;
@@ -184,10 +191,9 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
                 .api(new QueryUserInfoApi()
                         .setRequestBody(requestMsg))
 
-                .request(new DecryptCallBack<String>(this, new DecryptCallBack.ChildrenCallBack() {
+                .request(new DecryptCallBack(this, new DecryptCallBack.ChildrenCallBack() {
                     @Override
                     public void onSucceed(String result) {
-                        toast(result);
                         QueryUserInfoResponseDTO bean = new Gson().fromJson(result, QueryUserInfoResponseDTO.class);
                         if ("0".equals(bean.result)) {
                             if ("false".equals(bean.certificated)) {
@@ -232,12 +238,16 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
                             toast(bean.msg);
                         }
                     }
-                }) {
+
                     @Override
                     public void onFail(Exception e) {
-                        toast(e.toString());
+                        toast(e.getMessage());
+                        if(e.toString().contains("系统检测到您的账号在其他设备登录")){
+                            ClearInfoLogin.clearAndLogin(getAttachActivity());
+                            startActivity(LoginActivity.class);
+                        }
                     }
-                });
+                }));
 
 
     }

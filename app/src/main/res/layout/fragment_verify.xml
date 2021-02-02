@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/color272727"
+        android:layout_marginTop="54dp"
+        android:layout_marginLeft="40dp"
+        android:text="@string/pleaseInputPicVerifyCode"/>
+    
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_register_verify_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_new_tag1"
+        android:textSize="14sp"
+        android:textColor="@color/colorNewsItemDate"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_register_verify_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_new_tag2"
+        android:textSize="14sp"
+        android:textColor="@color/colorNewsItemDate"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"/>
+
+
+    <com.siasun.rtd.lngh.widget.VerifyCodeView
+        android:id="@+id/verify_code_view"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
+        >
+
+    </com.siasun.rtd.lngh.widget.VerifyCodeView>
+
+
+</LinearLayout>

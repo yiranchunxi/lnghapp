@@ -123,4 +123,32 @@
     <string name="feedback_title">请留下您的宝贵意见</string>
     <string name="feedback_hint">请留下联系方式(手机，qq号)选填,50字内</string>
     <string name="feedback_submit">提交反馈</string>
+
+
+    <string name="registerNewUser">新用户注册</string>
+    <string name="register_new_tag">注册辽宁工会，立享更多服务</string>
+    <string name="phoneNumberChina">+86</string>
+    <string name="nextStep">下一步</string>
+    <string name="pleaseInputPicVerifyCode">请输入验证码</string>
+    <string name="register_new_tag1">验证码已发送至  (+86) X</string>
+    <string name="register_new_tag2"> 后可重新发送</string>
+    <string name="register_new_tag3">请设置登录密码</string>
+    <string name="register_new_tag4">设置登录密码，即刻登入辽宁工会</string>
+    <string name="register_new_tag5"> 设置密码并登录</string>
+    <string name="register_new_tag6">重新发送</string>
+    <string name="register_new_tag7">正在发送</string>
+    <string name="passwordLengthMustAbove">密码长度必须不小于8，且必须包含数字、字母、符号至少两种</string>
+
+    <string name="resetPw">忘记密码</string>
+    <string name="pleaseInputYourPhoneNumber">请输入手机号</string>
+    <string name="pleaseInputVerifyCode">请输入短信验证码</string>
+    <string name="clickToSendVerifyCode">验证码</string>
+    <string name="pleaseSetNewPassword">请设置新密码</string>
+    <string name="confirm">确认</string>
+    <string name="findPw">找回密码</string>
+
+    <string name="pleaseInputNewPw">请输入新密码</string>
+    <string name="doingChangePw">正在修改密码...</string>
+    <string name="changePwSuccessPleaseReLogin">修改密码成功，请重新登录</string>
+    <string name="sendSuccess">发送成功</string>
 </resources>

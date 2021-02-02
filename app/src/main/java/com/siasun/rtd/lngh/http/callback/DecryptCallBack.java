@@ -13,12 +13,13 @@ import com.siasun.rtd.lngh.ui.activity.LoginActivity;
 import okhttp3.Call;
 
 
-public class DecryptCallBack<T> implements OnHttpListener<T> {
+public class DecryptCallBack implements OnHttpListener<String> {
 
     private OnHttpListener mSource;
     private ChildrenCallBack childrenCallBack;
     public interface ChildrenCallBack{
         void onSucceed(String result);
+        void onFail(Exception e);
     }
     public DecryptCallBack(OnHttpListener source,ChildrenCallBack childrenCallBack) {
         mSource=source;
@@ -34,30 +35,39 @@ public class DecryptCallBack<T> implements OnHttpListener<T> {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onSucceed(T result) {
+    public void onSucceed(String result) {
         Log.e("test2","onSucceed");
         if(mSource!=null){
-            ResponseMsgBean responseMsgBean = MsgHandler.msgDecode((String)result);
+            ResponseMsgBean responseMsgBean = MsgHandler.msgDecode(result);
             if (responseMsgBean == null){
-                mSource.onFail(new ApiException(Const.ERROR_DECODE_MSG_ERROR));
+                childrenCallBack.onFail(new ApiException(Const.ERROR_DECODE_MSG_ERROR));
+                return;
             } else if (!MsgHandler.checkMsgDi(responseMsgBean)){
-                mSource.onFail(new ApiException(Const.ERROR_DECODE_MSG_ERROR));
+                childrenCallBack.onFail(new ApiException(Const.ERROR_DECODE_MSG_ERROR,responseMsgBean.msg));
+                return;
             }else{
                 switch (responseMsgBean.cd){
                     case MsgHandler.ResponseCode.E_TOKEN_TIME_UP:
 
-                        mSource.onFail(new ApiException(Const.ERROR_TOKEN_TIME_UP));
+                        childrenCallBack.onFail(new ApiException(Const.ERROR_TOKEN_TIME_UP));
+                        return;
+
                     case MsgHandler.ResponseCode.E_TOKEN_OTHER_DEV_LOGIN:
-                        mSource.onFail(new ApiException(Const.ERROR_TOKEN_WRONG));
-                    case MsgHandler.ResponseCode.E_OTHER:
-                        mSource.onFail(new ApiException(Const.ERROR_OTHER_WRONG));
+                        childrenCallBack.onFail(new ApiException(Const.ERROR_TOKEN_WRONG,responseMsgBean.msg));
+                        return;
+
                     case MsgHandler.ResponseCode.NO_ERROR:
                         break;
                     default:
-                        mSource.onFail(new ApiException(Const.ERROR_OTHER_WRONG));
+                        childrenCallBack.onFail(new ApiException(Const.ERROR_OTHER_WRONG));
+                        return;
                 }
                 String responseStr = MsgHandler.decryptResponseMsg(responseMsgBean);
                 Log.e("test2",responseStr);
+                if (responseStr == null || responseStr.length() == 0){
+                    childrenCallBack.onFail(new ApiException(Const.ERROR_CAN_NOT_DEC_DATA));
+                    return;
+                }
                 if(childrenCallBack!=null){
                     childrenCallBack.onSucceed(responseStr);
                 }
@@ -69,6 +79,9 @@ public class DecryptCallBack<T> implements OnHttpListener<T> {
     public void onFail(Exception e) {
         if (mSource != null) {
             mSource.onFail(e);
+            if(childrenCallBack!=null){
+                childrenCallBack.onFail(e);
+            }
         }
     }
 

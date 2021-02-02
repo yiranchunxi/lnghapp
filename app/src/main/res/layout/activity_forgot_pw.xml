@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryBackground"
+        android:orientation="vertical"
+        android:padding="41dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="105dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentTop="true"
+                >
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorLoginEditTextView"
+                    android:text="@string/phoneNumberChina"
+                    android:layout_width="38dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="1dp"
+                    android:layout_height="20dp"
+                    android:background="@color/colorLoginEditTextView"
+                    android:layout_gravity="center_vertical"
+                    >
+
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorLoginEditTextView"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/phoneNumberEditText"
+                    android:hint="@string/pleaseInputYourPhoneNumber"
+                    android:inputType="number"
+                    android:layout_marginLeft="14dp"
+                    />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryRed"
+                android:layout_alignParentBottom="true"
+                >
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="25dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentTop="true"
+                >
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorLoginEditTextView"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/verifyCodeEditText"
+                    android:hint="@string/pleaseInputVerifyCode"
+                    android:inputType="number"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+
+                    />
+
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_login"
+                    android:textColor="@android:color/white"
+                    android:text="@string/clickToSendVerifyCode"
+                    android:textSize="14sp"
+                    android:id="@+id/sendVerifyCodeButton"
+                    android:layout_gravity="center_vertical"
+                    />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryRed"
+                android:layout_alignParentBottom="true"
+                >
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="25dp"
+            >
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/colorLoginEditTextView"
+                android:layout_width="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:id="@+id/passwordEditText"
+                android:hint="@string/pleaseSetNewPassword"
+                android:inputType="textPassword"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryRed"
+                android:layout_alignParentBottom="true"
+                >
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/btn_login"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:id="@+id/resetNewPwButton"
+            android:layout_marginTop="23dp"
+            android:text="@string/confirm"
+            />
+
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:textColor="@color/colorLoginEditTextView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="41dp"
+        android:layout_marginTop="100dp"
+        android:text="@string/findPw"
+        />
+
+
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/resetPw"
+        app:titleColor="@color/white"/>
+
+</RelativeLayout>

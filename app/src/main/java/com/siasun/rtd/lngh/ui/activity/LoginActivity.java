@@ -104,7 +104,7 @@ public class LoginActivity extends MyActivity implements KeyboardWatcher.SoftKey
             }
         }, 500);
 
-
+        setTitle("登录");
 
         // 填充传入的手机号和密码
         //mPhoneView.setText(getString(IntentKey.PHONE));
@@ -117,8 +117,8 @@ public class LoginActivity extends MyActivity implements KeyboardWatcher.SoftKey
 
     @Override
     public void onRightClick(View v) {
-        /*// 跳转到注册界面
-        startActivityForResult(RegisterActivity.class, (resultCode, data) -> {
+        // 跳转到注册界面
+        /*startActivityForResult(RegisterActivity.class, (resultCode, data) -> {
             // 如果已经注册成功，就执行登录操作
             if (resultCode == RESULT_OK && data != null) {
                 mPhoneView.setText(data.getStringExtra(IntentKey.PHONE));
@@ -127,6 +127,8 @@ public class LoginActivity extends MyActivity implements KeyboardWatcher.SoftKey
                 onClick(mCommitView);
             }
         });*/
+        startActivity(RegisterActivity.class);
+        finish();
     }
 
 
@@ -135,7 +137,7 @@ public class LoginActivity extends MyActivity implements KeyboardWatcher.SoftKey
     @Override
     public void onClick(View v) {
         if (v == mForgetView) {
-            //startActivity(PasswordForgetActivity.class);
+            startActivity(ForgotPwActivity.class);
         } else if (v == mCommitView) {
             if (mPhoneView.getText().toString().length() != 11) {
                 toast(R.string.common_phone_input_error);
@@ -158,7 +160,7 @@ public class LoginActivity extends MyActivity implements KeyboardWatcher.SoftKey
             EasyHttp.post(this)
                     .api(new LoginApi()
                             .setRequestBody(requestMsg))
-                    .request(new DecryptCallBack<String>(this, new DecryptCallBack.ChildrenCallBack() {
+                    .request(new DecryptCallBack(this, new DecryptCallBack.ChildrenCallBack() {
                         @Override
                         public void onSucceed(String result) {
                                 Log.e("test3",result);
@@ -181,7 +183,7 @@ public class LoginActivity extends MyActivity implements KeyboardWatcher.SoftKey
                                         hideDialog();
                                         startActivity(MainTabActivity.class);
                                         finish();
-                                    }, 2000);
+                                    }, 1000);
 
 
                                 }else {
@@ -189,18 +191,12 @@ public class LoginActivity extends MyActivity implements KeyboardWatcher.SoftKey
                                 }
                             }
 
-                    }) {
-
-                        @Override
-                        public void onStart(Call call) {
-                            toast("onStart");
-                        }
-
                         @Override
                         public void onFail(Exception e) {
                             toast(e.toString());
                         }
-                    });
+
+                    }));
 
 
 

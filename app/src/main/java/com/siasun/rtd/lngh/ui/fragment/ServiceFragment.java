@@ -33,6 +33,7 @@ import com.siasun.rtd.lngh.http.prefs.PBOCDES;
 import com.siasun.rtd.lngh.http.prefs.SharedPreferenceUtil;
 import com.siasun.rtd.lngh.http.request.QueryUserIdApi;
 import com.siasun.rtd.lngh.http.response.QueryUserIdResponse;
+import com.siasun.rtd.lngh.other.ClearInfoLogin;
 import com.siasun.rtd.lngh.other.IntentKey;
 import com.siasun.rtd.lngh.ui.activity.BrowserActivity;
 import com.siasun.rtd.lngh.ui.activity.BrowserNoTitleBarActivity;
@@ -227,7 +228,7 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
                 certificationInfo.code=SharedPreferenceUtil.getInstance().get(getAttachActivity(),"identification");
                 certificationInfo.phone=SharedPreferenceUtil.getInstance().get(getAttachActivity(),IntentKey.PHONE);
                 try{
-                    //Log.e("test",URLEncoder.encode(new Gson().toJson(certificationInfo),"utf-8"));
+                    Log.e("test",URLEncoder.encode(new Gson().toJson(certificationInfo),"utf-8"));
                     BrowserActivity.start(getAttachActivity(),"http://182.92.172.248/xflg_h5/index.html?message="+ URLEncoder.encode(new Gson().toJson(certificationInfo),"utf-8"));
                 }catch (UnsupportedEncodingException e){
                     toast("编码信息错误,请联系管理员");
@@ -280,7 +281,9 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
 
 
         }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_LOGIN_SCENE)){
+            ClearInfoLogin.clearAndLogin(getAttachActivity());
             toast("请登录");
+            startActivity(LoginActivity.class);
         }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_PSYCOUNSELING_SCENE)){
             show_psycounseling_scene();
         }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_STAFF_BOOKSTORE_SCENE)){

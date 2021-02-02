@@ -204,6 +204,22 @@
             android:label="@string/my_system_info"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
+
+        <!-- 注册界面-->
+        <activity android:name=".ui.activity.RegisterActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/login_register"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+
+        <!-- 忘记密码-->
+        <activity android:name=".ui.activity.ForgotPwActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/resetPw"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+
+
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"

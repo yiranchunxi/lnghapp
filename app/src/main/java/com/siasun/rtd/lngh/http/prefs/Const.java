@@ -52,5 +52,6 @@ public class Const {
     //显示职工书屋
     public static final String EVENT_TAG_SHOW_STAFF_BOOKSTORE_SCENE="event_tag_show_staff_bookstore_scene";
 
-
+    //注册切换页面
+    public static final String EVENT_TAG_REGISTER="event_tag_register";
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        app:backButton="false"
+        android:background="@color/white"
+        app:titleColor="@color/white"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <RelativeLayout
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/actionBarBackButton"
+                style="@style/borderlessButtonBackground"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/icon_back"
+                    android:layout_margin="3dp"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/actionBarCloseButton"
+                style="@style/borderlessButtonBackground"
+                android:layout_marginLeft="40dp"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/icon_nav_close"
+                    android:layout_margin="5dp"
+                    />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </com.hjq.bar.TitleBar>
+    <com.hjq.widget.layout.NoScrollViewPager
+        android:id="@+id/vp_register_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1" />
+</LinearLayout>

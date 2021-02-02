@@ -9,7 +9,8 @@ import com.siasun.rtd.lngh.http.prefs.Const;
 public class ApiException extends RuntimeException {
 
 
-    private static String errorMsg;
+    private String errorMsg;
+
     public ApiException(int resultCode) {
         this(getApiExceptionMessage(resultCode));
     }
@@ -48,5 +49,6 @@ public class ApiException extends RuntimeException {
         }
         return message;
     }
+
 }
 

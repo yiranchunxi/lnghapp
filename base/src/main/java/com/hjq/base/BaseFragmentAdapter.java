@@ -35,7 +35,7 @@ public class BaseFragmentAdapter<F extends BaseFragment> extends FragmentPagerAd
     /** 设置成懒加载模式 */
     private boolean mLazyMode = true;
 
-    public BaseFragmentAdapter(FragmentActivity activity) {
+    public  BaseFragmentAdapter(FragmentActivity activity) {
         this(activity.getSupportFragmentManager());
     }
 

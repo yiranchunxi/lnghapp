@@ -41,10 +41,10 @@ android {
     // APK 签名的那些事：https://www.jianshu.com/p/a1f8e5896aa2
     signingConfigs {
         config {
-            storeFile file('LnghKey.jks')
-            storePassword 'siasun2018'
-            keyAlias 'lngh'
-            keyPassword 'a2008b2009'
+            storeFile file(StoreFile)
+            storePassword StorePassword
+            keyAlias KeyAlias
+            keyPassword KeyPassword
         }
     }
 

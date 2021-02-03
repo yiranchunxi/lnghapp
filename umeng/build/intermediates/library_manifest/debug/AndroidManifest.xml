@@ -26,25 +26,25 @@
         <!-- 友盟 Key（请在 Gradle 中配置，请不要在此处修改） -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5acaf8d2a40fa369410001b2" />
+            android:value="xxxxxxxxxxxxxxxxx" />
 
         <!-- QQ AppId（请在 Gradle 中配置，请不要在此处修改） -->
         <meta-data
             android:name="QQ_APPID"
-            android:value="101828096" />
+            android:value="xxxxxxxxxxxx" />
         <!-- QQ Key（请在 Gradle 中配置，请不要在此处修改） -->
         <meta-data
             android:name="QQ_APPKEY"
-            android:value="9dfd3300c3aa3c4596a07796c64914b2" />
+            android:value="xxxxxxxxxxxxxxxxxxx" />
 
         <!-- 微信 AppId（请在 Gradle 中配置，请不要在此处修改） -->
         <meta-data
             android:name="WX_APPID"
-            android:value="wx3d793f90ed105e3e" />
+            android:value="xxxxxxxxxxxxx" />
         <!-- 微信 Key（请在 Gradle 中配置，请不要在此处修改） -->
         <meta-data
             android:name="WX_APPKEY"
-            android:value="1aaea8123b5b4b9da7dbafd68f844187" />
+            android:value="xxxxxxxxxxxxxxxxxxxxxxxxxx" />
 
         <!-- 友盟社会化 -->
 
@@ -61,7 +61,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent101828096" />
+                <data android:scheme="tencentxxxxxxxxxxxx" />
             </intent-filter>
         </activity>
         <activity

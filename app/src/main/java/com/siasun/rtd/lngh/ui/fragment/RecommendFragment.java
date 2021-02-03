@@ -59,7 +59,7 @@ public class RecommendFragment extends MyFragment<MyActivity>
 
     private TextView tv_home_service_more;
     private LinearLayout ll_service_hotline,ll_service_staff,ll_service_model,ll_service_sports;
-
+    private static int NUMBER_PER_LOAD = 5;
     public static RecommendFragment newInstance() {
         return new RecommendFragment();
     }
@@ -136,9 +136,11 @@ public class RecommendFragment extends MyFragment<MyActivity>
                     .request(new HttpCallback<QueryNewsResponseDTO<QueryNewsResponseItemDTO>>(this){
                         @Override
                         public void onSucceed(QueryNewsResponseDTO<QueryNewsResponseItemDTO> result) {
+                            if (result.data.size() < NUMBER_PER_LOAD) {
+                                mRefreshLayout.finishLoadMoreWithNoMoreData();//将不会再次触发加载更多事件
+                            }
                             mAdapter.addData(result.data);
                             mRefreshLayout.finishLoadMore();
-                            //toast("加载完成");
                         }
                     });
     }
@@ -218,5 +220,11 @@ public class RecommendFragment extends MyFragment<MyActivity>
                         toast(e.toString());
                     }
                 });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EasyHttp.cancel(this);
     }
 }

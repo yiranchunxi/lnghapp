@@ -10,6 +10,7 @@ import com.hjq.http.EasyHttp;
 import com.hjq.http.listener.HttpCallback;
 import com.siasun.rtd.lngh.R;
 import com.siasun.rtd.lngh.common.MyFragment;
+import com.siasun.rtd.lngh.http.prefs.Const;
 import com.siasun.rtd.lngh.http.request.NewsApi;
 import com.siasun.rtd.lngh.http.request.SwiperApi;
 import com.siasun.rtd.lngh.http.response.QueryBannerResponseDTO;
@@ -43,10 +44,10 @@ public final class HomeFragment extends MyFragment<MainTabActivity> {
         mViewPager = findViewById(R.id.vp_home_pager);
         mPagerAdapter = new BaseFragmentAdapter<>(this);
         mPagerAdapter.addFragment(RecommendFragment.newInstance(), "推荐");
-        mPagerAdapter.addFragment(UnionFragment.newInstance(), "省总");
-        mPagerAdapter.addFragment(UnionFragment.newInstance(), "市总");
-        mPagerAdapter.addFragment(UnionFragment.newInstance(), "视频");
-        mPagerAdapter.addFragment(UnionFragment.newInstance(), "关于我们");
+        mPagerAdapter.addFragment(NewsFragment.newInstance(), "省总");
+        mPagerAdapter.addFragment(NewsCityFragment.newInstance(), "市总");
+        mPagerAdapter.addFragment(VideoFragment.newInstance(), "视频");
+        mPagerAdapter.addFragment(WebFragment.newInstance(Const.ABOUT_PAGE_URL), "关于我们");
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }

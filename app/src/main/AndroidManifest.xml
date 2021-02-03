@@ -219,6 +219,13 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
 
+        <!-- 播放视频 -->
+        <activity
+            android:name=".ui.activity.VideoPlayActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullScreenTheme" />
 
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"

@@ -7,6 +7,7 @@ import com.hjq.base.BaseFragmentAdapter;
 import com.siasun.rtd.lngh.R;
 import com.siasun.rtd.lngh.common.MyActivity;
 import com.siasun.rtd.lngh.common.MyFragment;
+import com.siasun.rtd.lngh.http.prefs.Const;
 import com.siasun.rtd.lngh.ui.fragment.MyCollectFragment;
 import com.siasun.rtd.lngh.ui.fragment.WebFragment;
 
@@ -27,7 +28,7 @@ public class MyCollectActivity extends MyActivity {
         mViewPager = findViewById(R.id.vp_favorite_pager);
         mPagerAdapter = new BaseFragmentAdapter<>(this);
         mPagerAdapter.addFragment(MyCollectFragment.newInstance(), "资讯");
-        mPagerAdapter.addFragment(WebFragment.newInstance("http://182.92.172.248/lgh/views/circle/favourite.html"), "公会圈");
+        mPagerAdapter.addFragment(WebFragment.newInstance(Const.COLLECT_PAGE_URL), "公会圈");
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }

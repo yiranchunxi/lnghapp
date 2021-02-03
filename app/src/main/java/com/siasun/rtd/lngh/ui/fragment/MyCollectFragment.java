@@ -31,7 +31,7 @@ public final class MyCollectFragment extends MyFragment<MainTabActivity> impleme
     private WrapRecyclerView mRecyclerView;
 
     private NewsAdapter mAdapter;
-
+    private static int NUMBER_PER_LOAD = 5;
     public static MyCollectFragment newInstance() {
         return new MyCollectFragment();
     }
@@ -81,9 +81,12 @@ public final class MyCollectFragment extends MyFragment<MainTabActivity> impleme
                 .request(new HttpCallback<QueryNewsResponseDTO<QueryNewsResponseItemDTO>>(this){
                     @Override
                     public void onSucceed(QueryNewsResponseDTO<QueryNewsResponseItemDTO> result) {
+                        if (result.data.size() < NUMBER_PER_LOAD) {
+                            mRefreshLayout.finishLoadMoreWithNoMoreData();//将不会再次触发加载更多事件
+                        }
                         mAdapter.addData(result.data);
                         mRefreshLayout.finishLoadMore();
-                        //toast("加载完成");
+
                     }
                 });
     }

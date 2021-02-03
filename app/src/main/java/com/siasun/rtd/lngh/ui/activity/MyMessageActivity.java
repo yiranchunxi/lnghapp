@@ -67,7 +67,7 @@ public class MyMessageActivity extends MyActivity implements OnRefreshLoadMoreLi
                 .request(new DecryptCallBack(this, new DecryptCallBack.ChildrenCallBack() {
                     @Override
                     public void onSucceed(String result) {
-                        toast(result);
+                        //toast(result);
                         MyMessageResponse response=new Gson().fromJson(result, MyMessageResponse.class);
                         if (response.msg_list.size() < NUMBER_PER_LOAD) {
                             mRefreshLayout.finishLoadMoreWithNoMoreData();//将不会再次触发加载更多事件

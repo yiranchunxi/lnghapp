@@ -42,33 +42,33 @@
 27        <meta-data
 28            android:name="UMENG_APPKEY"
 28-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:21:13-40
-29            android:value="5acaf8d2a40fa369410001b2" />
+29            android:value="xxxxxxxxxxxxxxxxx" />
 29-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:22:13-44
 30
 31        <!-- QQ AppId（请在 Gradle 中配置，请不要在此处修改） -->
 32        <meta-data
 33            android:name="QQ_APPID"
 33-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:26:13-36
-34            android:value="101828096" />
+34            android:value="xxxxxxxxxxxx" />
 34-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:27:13-40
 35        <!-- QQ Key（请在 Gradle 中配置，请不要在此处修改） -->
 36        <meta-data
 37            android:name="QQ_APPKEY"
 37-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:30:13-37
-38            android:value="9dfd3300c3aa3c4596a07796c64914b2" />
+38            android:value="xxxxxxxxxxxxxxxxxxx" />
 38-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:31:13-41
 39
 40        <!-- 微信 AppId（请在 Gradle 中配置，请不要在此处修改） -->
 41        <meta-data
 42            android:name="WX_APPID"
 42-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:35:13-36
-43            android:value="wx3d793f90ed105e3e" />
+43            android:value="xxxxxxxxxxxxx" />
 43-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:36:13-40
 44        <!-- 微信 Key（请在 Gradle 中配置，请不要在此处修改） -->
 45        <meta-data
 46            android:name="WX_APPKEY"
 46-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:39:13-37
-47            android:value="1aaea8123b5b4b9da7dbafd68f844187" />
+47            android:value="xxxxxxxxxxxxxxxxxxxxxxxxxx" />
 47-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:40:13-41
 48
 49        <!-- 友盟社会化 -->
@@ -98,7 +98,7 @@
 62-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:54:17-78
 62-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:54:27-75
 63
-64                <data android:scheme="tencent101828096" />
+64                <data android:scheme="tencentxxxxxxxxxxxx" />
 64-->E:\e\lngh\umeng\src\main\AndroidManifest.xml:56:23-58
 65            </intent-filter>
 66        </activity>

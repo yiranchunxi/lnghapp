@@ -99,7 +99,7 @@ ADDED from E:\e\lngh\umeng\src\main\AndroidManifest.xml:45:9-58:20
 		ADDED from E:\e\lngh\umeng\src\main\AndroidManifest.xml:48:13-37
 	android:name
 		ADDED from E:\e\lngh\umeng\src\main\AndroidManifest.xml:46:13-58
-intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:tencent101828096
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:tencentxxxxxxxxxxxx
 ADDED from E:\e\lngh\umeng\src\main\AndroidManifest.xml:50:13-57:29
 action#android.intent.action.VIEW
 ADDED from E:\e\lngh\umeng\src\main\AndroidManifest.xml:51:17-69

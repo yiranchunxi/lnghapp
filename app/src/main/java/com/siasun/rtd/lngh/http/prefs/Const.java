@@ -19,6 +19,9 @@ public class Const {
     public static final String PRIVACY_LISENCE_PAGE_URL="http://app.lnszgh.org/lgh/views/privacy/lisence.html";
     public static final String PRIVACY_PROTECT_PAGE_URL="http://app.lnszgh.org/lgh/views/privacy/protect.html";
     public static final String COLLECT_PAGE_URL = "http://app.lnszgh.org/lgh/views/circle/favourite.html";
+    public static final String ABOUT_PAGE_URL = "http://app.lnszgh.org/lgh/views/introduction/introduction.html";
+
+
     public static final int JPUSH_SET_ALIAS=0xE1006;
     public static final int JPUSH_SET_TAGS=0xE1007;
     public static final int JPUSH_DELETE_ALIAS=0xE1008;

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/sendCircleTitle"
+        app:titleColor="@color/white"
+        app:rightTitle="@string/send"
+        app:rightColor="@color/white"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="13dp"
+        android:orientation="vertical"
+        >
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="match_parent"
+            android:layout_height="115dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorLoginEditTextView"
+            android:hint="@string/editSendCircleHint"
+            android:gravity="top"
+            android:id="@+id/sendCircleEditText"
+            android:textSize="14sp"
+            />
+        <com.hjq.widget.layout.WrapRecyclerView
+            android:id="@+id/rv_status_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listCount="10"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/videoPreviewImgView"
+            android:visibility="gone"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:layout_margin="2dp"
+            android:orientation="horizontal"
+            android:background="@color/colorLinkBackground"
+            android:id="@+id/linkPreviewLayout"
+            android:visibility="gone"
+            >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_margin="8dp"
+                android:id="@+id/previewImageView"
+                android:src="@drawable/icon_default"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:maxLines="3"
+                android:textSize="14sp"
+                android:textColor="@color/colorNewsItemDate"
+                android:id="@+id/pageTitleTextView"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/white"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:background="@color/colore6e6e6"
+            >
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        >
+        <RelativeLayout
+            style="@style/sendCircleBorderlessButton"
+            android:id="@+id/addImgButton"
+            >
+            <ImageView
+                style="@style/sendCircleButtonImg"
+                android:src="@drawable/icon_union_comments_picture"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/sendCircleBorderlessButton"
+            android:id="@+id/addStickerButton"
+            >
+            <ImageView
+                style="@style/sendCircleButtonImg"
+                android:src="@drawable/icon_union_comments_video"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            style="@style/sendCircleBorderlessButton"
+            android:id="@+id/addLinkButton"
+            >
+            <ImageView
+                style="@style/sendCircleButtonImg"
+                android:src="@drawable/icon_union_comments_attachment"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colore6e6e6"
+
+        >
+
+    </RelativeLayout>
+</LinearLayout>

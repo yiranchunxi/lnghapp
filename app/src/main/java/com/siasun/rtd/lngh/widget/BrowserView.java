@@ -79,6 +79,9 @@ public final class BrowserView extends WebView implements ActivityAction {
         settings.setLoadsImagesAutomatically(true);
         // 本地 DOM 存储（解决加载某些网页出现白板现象）
         settings.setDomStorageEnabled(true);
+        // 启动应用缓存
+        //settings.setAppCacheEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // 解决 Android 5.0 上 WebView 默认不允许加载 Http 与 Https 混合内容

@@ -156,6 +156,13 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
         refreshUserInfo();
 
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        hideDialog();
+    }
+
     private void refreshUserInfo(){
         if(!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(),IntentKey.TOKEN))){
             mGotoLoginButton.setVisibility(View.INVISIBLE);

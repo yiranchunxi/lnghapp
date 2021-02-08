@@ -18,7 +18,7 @@ public class Const {
     public static final String URL_LNGH_SERVER="http://app.lnszgh.org";
     public static final String PRIVACY_LISENCE_PAGE_URL="http://app.lnszgh.org/lgh/views/privacy/lisence.html";
     public static final String PRIVACY_PROTECT_PAGE_URL="http://app.lnszgh.org/lgh/views/privacy/protect.html";
-    public static final String COLLECT_PAGE_URL = "http://app.lnszgh.org/lgh/views/circle/favourite.html";
+    public static final String COLLECT_PAGE_URL = "http://182.92.172.248/lgh/views/circle/favourite.html";
     public static final String ABOUT_PAGE_URL = "http://app.lnszgh.org/lgh/views/introduction/introduction.html";
 
 
@@ -26,6 +26,15 @@ public class Const {
     public static final int JPUSH_SET_TAGS=0xE1007;
     public static final int JPUSH_DELETE_ALIAS=0xE1008;
     public static final int JPUSH_DELETE_TAGS=0xE1009;
+
+    //发送公会圈
+    public static final int CIRCLE_MAX_IMG_COUNT = 9;
+    public static final int CIRCLE_TYPE_TEXT = 0;
+    public static final int CIRCLE_TYPE_IMG = 1;
+    public static final int CIRCLE_TYPE_VIDEO = 2;
+    public static final int CIRCLE_TYPE_LINK = 3;
+
+
     //消息总线tag
     //显示入会界面 接收在servicefragment
     public static final String EVENT_TAG_SHOW_MEMBER_CERTIFICATION_SCENE="event_tag_show_member_certification_scene";
@@ -57,4 +66,13 @@ public class Const {
 
     //注册切换页面
     public static final String EVENT_TAG_REGISTER="event_tag_register";
+
+    //登录刷新网页
+    public static final String EVENT_TAG_SUCCESS_LOGIN="event_tag_success_login";
+
+    //再次点击工会圈刷新
+    public static final String EVENT_TAG_CLICK_UNION="event_tag_click_union";
+
+    //显示发布公会圈
+    public static final String EVENT_TAG_SHOW_SEND_SCENE="EVENT_TAG_show_send_scene";
 }

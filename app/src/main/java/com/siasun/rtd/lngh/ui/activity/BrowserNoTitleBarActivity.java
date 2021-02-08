@@ -62,7 +62,7 @@ public final class BrowserNoTitleBarActivity extends MyActivity implements Statu
 
     private HintLayout mHintLayout;
     private ProgressBar mProgressBar;
-    private SmartRefreshLayout mRefreshLayout;
+    //private SmartRefreshLayout mRefreshLayout;
     private BrowserView mBrowserView;
     private boolean isShow;
 
@@ -76,11 +76,11 @@ public final class BrowserNoTitleBarActivity extends MyActivity implements Statu
     protected void initView() {
         mHintLayout = findViewById(R.id.hl_browser_hint);
         mProgressBar = findViewById(R.id.pb_browser_progress);
-        mRefreshLayout = findViewById(R.id.sl_browser_refresh);
+        //mRefreshLayout = findViewById(R.id.sl_browser_refresh);
         mBrowserView = findViewById(R.id.wv_browser_view);
 
         // 设置网页刷新监听
-        mRefreshLayout.setOnRefreshListener(this);
+        //mRefreshLayout.setOnRefreshListener(this);
 
     }
 
@@ -175,7 +175,7 @@ public final class BrowserNoTitleBarActivity extends MyActivity implements Statu
         @Override
         public void onPageFinished(WebView view, String url) {
             mProgressBar.setVisibility(View.GONE);
-            mRefreshLayout.finishRefresh();
+            //mRefreshLayout.finishRefresh();
             showComplete();
         }
     }
@@ -244,6 +244,9 @@ public final class BrowserNoTitleBarActivity extends MyActivity implements Statu
         }
         if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_LEGAL_AID_SCENE)){
             show_legal_aid_scene();
+        }
+        if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_WEB_SCENE)){
+            BrowserNoTitleBarActivity.start(this,messageEvent.getMessage());
         }
     }
 

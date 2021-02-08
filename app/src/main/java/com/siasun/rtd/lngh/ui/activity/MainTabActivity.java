@@ -17,12 +17,16 @@ import com.siasun.rtd.lngh.common.MyActivity;
 import com.siasun.rtd.lngh.common.MyFragment;
 import com.siasun.rtd.lngh.helper.ActivityStackManager;
 import com.siasun.rtd.lngh.helper.DoubleClickHelper;
+import com.siasun.rtd.lngh.http.bean.MessageEvent;
+import com.siasun.rtd.lngh.http.prefs.Const;
 import com.siasun.rtd.lngh.other.KeyboardWatcher;
 import com.siasun.rtd.lngh.ui.fragment.DiscoveryFragment;
 import com.siasun.rtd.lngh.ui.fragment.HomeFragment;
 import com.siasun.rtd.lngh.ui.fragment.MeFragment;
 import com.siasun.rtd.lngh.ui.fragment.ServiceFragment;
 import com.siasun.rtd.lngh.ui.fragment.UnionFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 public final class MainTabActivity  extends MyActivity implements KeyboardWatcher.SoftKeyboardStateListener,
         BottomNavigationView.OnNavigationItemSelectedListener  {
@@ -74,6 +78,9 @@ public final class MainTabActivity  extends MyActivity implements KeyboardWatche
                 mViewPager.setCurrentItem(0);
                 return true;
             case R.id.menu_union:
+                if(mViewPager.getCurrentItem()==1){
+                    EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_CLICK_UNION,"event_tag_click_union"));
+                }
                 mViewPager.setCurrentItem(1);
                 return true;
             case R.id.menu_service:

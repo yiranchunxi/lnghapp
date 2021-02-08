@@ -25,6 +25,7 @@ import com.siasun.rtd.lngh.aop.SingleClick;
 import com.siasun.rtd.lngh.common.MyActivity;
 import com.siasun.rtd.lngh.helper.InputTextHelper;
 import com.siasun.rtd.lngh.http.bean.LoginRequestBean;
+import com.siasun.rtd.lngh.http.bean.MessageEvent;
 import com.siasun.rtd.lngh.http.bean.ResponseMsgBean;
 import com.siasun.rtd.lngh.http.callback.DecryptCallBack;
 import com.siasun.rtd.lngh.http.prefs.Const;
@@ -35,6 +36,8 @@ import com.siasun.rtd.lngh.http.request.LoginApi;
 import com.siasun.rtd.lngh.http.response.LoginResponseBean;
 import com.siasun.rtd.lngh.other.IntentKey;
 import com.siasun.rtd.lngh.other.KeyboardWatcher;
+
+import org.greenrobot.eventbus.EventBus;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -177,6 +180,8 @@ public class LoginActivity extends MyActivity implements KeyboardWatcher.SoftKey
                                     if(!TextUtils.isEmpty(responseBean.identification)){
                                         SharedPreferenceUtil.getInstance().put(LoginActivity.this,"identification",responseBean.identification);
                                     }
+                                    //通知工会圈 服务 惠商城页面刷新
+                                    EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SUCCESS_LOGIN,"event_tag_success_login"));
 
                                     showDialog();
                                     postDelayed(() -> {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
@@ -60,6 +61,33 @@ public final class WebFragment extends MyFragment<MainTabActivity> implements St
     private ProgressBar mProgressBar;
     private SmartRefreshLayout mRefreshLayout;
     private BrowserView mBrowserView;
+
+    private int time = 0, count = 0;
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            time += 1000;
+            //toast(time);
+            if (time > 10000) {
+                if (mBrowserView != null) {
+
+                    mProgressBar.setVisibility(View.GONE);
+                    showComplete();
+                    if (mBrowserView != null) {
+                        mBrowserView.onPause();
+                        mBrowserView.onResume();
+                    }
+
+                }
+                handler.removeCallbacks(runnable);
+            } else {
+                handler.postDelayed(this, 1000);
+            }
+
+        }
+    };
+
 
     @Override
     protected int getLayoutId() {
@@ -142,6 +170,8 @@ public final class WebFragment extends MyFragment<MainTabActivity> implements St
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        count = 0;
+        time = 0;
         mBrowserView.reload();
     }
 
@@ -169,6 +199,8 @@ public final class WebFragment extends MyFragment<MainTabActivity> implements St
          */
         @Override
         public void onPageFinished(WebView view, String url) {
+            count = 0;
+            time = 0;
             mProgressBar.setVisibility(View.GONE);
             mRefreshLayout.finishRefresh();
             showComplete();
@@ -180,6 +212,8 @@ public final class WebFragment extends MyFragment<MainTabActivity> implements St
      */
     @CheckNet
     private void reload() {
+        count = 0;
+        time = 0;
         mBrowserView.reload();
     }
 
@@ -205,6 +239,16 @@ public final class WebFragment extends MyFragment<MainTabActivity> implements St
          */
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
+            // 启动计时器
+            if (newProgress > 50 && newProgress < 100) {
+                if (count == 0) {
+                    handler.postDelayed(runnable, 1000);
+                    count++;
+                }
+            } else if (newProgress == 100) {
+                // 停止计时器
+                handler.removeCallbacks(runnable);
+            }
             mProgressBar.setProgress(newProgress);
         }
     }
@@ -213,45 +257,6 @@ public final class WebFragment extends MyFragment<MainTabActivity> implements St
     public void Event(MessageEvent messageEvent) {
         if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_WEB_SCENE)){
             BrowserNoTitleBarActivity.start(getAttachActivity(),messageEvent.getMessage());
-        }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_CALL_SCENE)){
-            XXPermissions.with(getAttachActivity())
-                    // 可设置被拒绝后继续申请，直到用户授权或者永久拒绝
-                    //.constantRequest()
-                    // 支持请求6.0悬浮窗权限8.0请求安装权限
-                    //.permission(Permission.SYSTEM_ALERT_WINDOW, Permission.REQUEST_INSTALL_PACKAGES)
-                    // 不指定权限则自动获取清单中的危险权限
-                    .permission(Permission.CALL_PHONE)
-                    .request(new OnPermission() {
-
-                        @Override
-                        public void hasPermission(List<String> granted, boolean isAll) {
-                            if (isAll) {
-                                // toast("获取权限成功");
-                                Intent intent = new Intent(Intent.ACTION_CALL);
-                                String phoneNum=messageEvent.getMessage();
-                                if(phoneNum!=null&&!TextUtils.isEmpty(phoneNum)){
-                                    Uri uri = Uri.parse("tel:" + phoneNum);
-                                    intent.setData(uri);
-                                    startActivity(intent);
-                                }
-                            } else {
-                                toast("获取权限成功，部分权限未正常授予");
-                            }
-                        }
-
-                        @Override
-                        public void noPermission(List<String> denied, boolean quick) {
-                            if(quick) {
-                                toast("被永久拒绝授权，请手动授予权限");
-                                //如果是被永久拒绝就跳转到应用权限系统设置页面
-                                XXPermissions.startPermissionActivity(getAttachActivity());
-                            } else {
-                                toast("获取权限失败");
-                            }
-                        }
-                    });
-
-
         }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_LOGIN_SCENE)){
             toast("请登录");
         }
@@ -260,6 +265,9 @@ public final class WebFragment extends MyFragment<MainTabActivity> implements St
 
     @Override
     public void onDestroyView() {
+        if(mBrowserView!=null){
+            mBrowserView.onDestroy();
+        }
         super.onDestroyView();
         if(EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);

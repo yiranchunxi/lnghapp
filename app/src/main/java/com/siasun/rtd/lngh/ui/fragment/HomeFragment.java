@@ -48,6 +48,7 @@ public final class HomeFragment extends MyFragment<MainTabActivity> {
         mPagerAdapter.addFragment(NewsCityFragment.newInstance(), "市总");
         mPagerAdapter.addFragment(VideoFragment.newInstance(), "视频");
         mPagerAdapter.addFragment(WebFragment.newInstance(Const.ABOUT_PAGE_URL), "关于我们");
+        mPagerAdapter.setLazyMode(true);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }

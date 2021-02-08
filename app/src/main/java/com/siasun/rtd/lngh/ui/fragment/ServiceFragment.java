@@ -3,6 +3,7 @@ package com.siasun.rtd.lngh.ui.fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -70,8 +71,33 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
     private SmartRefreshLayout mRefreshLayout;
     private BrowserView mBrowserView;
 
+    private int time=0,count=0;
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            time+=1000;
+            //toast(time);
+            if(time>10000){
+                if(mBrowserView!=null){
 
+                    mProgressBar.setVisibility(View.GONE);
+                    mRefreshLayout.finishRefresh();
+                    showComplete();
+                    if(mBrowserView!=null){
+                        mBrowserView.onPause();
+                        mBrowserView.onResume();
+                    }
 
+                }
+                handler.removeCallbacks(runnable);
+            }else{
+                handler.postDelayed(this, 1000);
+            }
+
+        }
+    };
+    private boolean isResume=false;
 
     @Override
     protected int getLayoutId() {
@@ -94,7 +120,6 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
     @Override
     protected void initData() {
         showLoading();
-
         mBrowserView.setBrowserViewClient(new MyBrowserViewClient());
         mBrowserView.setBrowserChromeClient(new MyBrowserChromeClient(mBrowserView));
         String url = "http://182.92.172.248/lgh/views/service/service.html";
@@ -113,24 +138,21 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
         if(mBrowserView!=null){
             mBrowserView.onResume();
         }
+        isResume=true;
         super.onResume();
     }
 
     @Override
     public void onPause() {
+        //toast("onPause");
         if(mBrowserView!=null){
             mBrowserView.onPause();
         }
+        isResume=false;
         super.onPause();
     }
 
-    @Override
-    public void onDestroy() {
-        if(mBrowserView!=null){
-            mBrowserView.onDestroy();
-        }
-        super.onDestroy();
-    }
+
 
 
 
@@ -181,6 +203,9 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
          */
         @Override
         public void onPageFinished(WebView view, String url) {
+            //toast("onPageFinished");
+            count=0;
+            time=0;
             mProgressBar.setVisibility(View.GONE);
             mRefreshLayout.finishRefresh();
             showComplete();
@@ -192,6 +217,8 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
      */
     @CheckNet
     private void reload() {
+        count=0;
+        time=0;
         mBrowserView.reload();
     }
 
@@ -217,18 +244,33 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
          */
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
+            //toast(newProgress);
+            // 启动计时器
+            if(newProgress>50&&newProgress<100){
+                if(count==0){
+                    handler.postDelayed(runnable, 1000);
+                    count++;
+                }
+            }else if(newProgress == 100){
+                // 停止计时器
+                handler.removeCallbacks(runnable);
+            }
+
             mProgressBar.setProgress(newProgress);
         }
     }
+
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
+        Log.e("test","MessageEvent");
         if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_MEMBER_CERTIFICATION_SCENE)){
-            if(!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(),IntentKey.TOKEN))){
+            if(!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(), IntentKey.TOKEN))){
                 CertificationInfo certificationInfo=new CertificationInfo();
                 certificationInfo.code=SharedPreferenceUtil.getInstance().get(getAttachActivity(),"identification");
                 certificationInfo.phone=SharedPreferenceUtil.getInstance().get(getAttachActivity(),IntentKey.PHONE);
                 try{
-                    Log.e("test",URLEncoder.encode(new Gson().toJson(certificationInfo),"utf-8"));
+                    Log.e("test", URLEncoder.encode(new Gson().toJson(certificationInfo),"utf-8"));
                     BrowserActivity.start(getAttachActivity(),"http://182.92.172.248/xflg_h5/index.html?message="+ URLEncoder.encode(new Gson().toJson(certificationInfo),"utf-8"));
                 }catch (UnsupportedEncodingException e){
                     toast("编码信息错误,请联系管理员");
@@ -239,8 +281,9 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
                 toast("请先登录");
             }
         }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_WEB_SCENE)){
-
-            BrowserNoTitleBarActivity.start(getAttachActivity(),messageEvent.getMessage());
+            if(isResume){
+                BrowserNoTitleBarActivity.start(getAttachActivity(),messageEvent.getMessage());
+            }
         }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_CALL_SCENE)){
             XXPermissions.with(getAttachActivity())
                     // 可设置被拒绝后继续申请，直到用户授权或者永久拒绝
@@ -254,7 +297,7 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
                         @Override
                         public void hasPermission(List<String> granted, boolean isAll) {
                             if (isAll) {
-                               // toast("获取权限成功");
+                                // toast("获取权限成功");
                                 Intent intent = new Intent(Intent.ACTION_CALL);
                                 String phoneNum=messageEvent.getMessage();
                                 if(phoneNum!=null&&!TextUtils.isEmpty(phoneNum)){
@@ -281,26 +324,18 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
 
 
         }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_LOGIN_SCENE)){
-            ClearInfoLogin.clearAndLogin(getAttachActivity());
-            toast("请登录");
-            startActivity(LoginActivity.class);
+            if(isResume){
+                ClearInfoLogin.clearAndLogin(getAttachActivity());
+                toast("请登录");
+                startActivity(LoginActivity.class);
+            }
         }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_PSYCOUNSELING_SCENE)){
             show_psycounseling_scene();
         }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_STAFF_BOOKSTORE_SCENE)){
             BrowserActivity.start(getAttachActivity(),"http://djk.chaoxing.com/index_5856.html");
+        }else if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SUCCESS_LOGIN)){
+            reload();
         }
-    }
-
-
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if(EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
-        EasyHttp.cancel(this);
     }
 
 
@@ -379,6 +414,23 @@ public final class ServiceFragment extends MyFragment<MainTabActivity>implements
                     }
                 });
     }
+
+    @Override
+    public void onDestroyView() {
+
+        if(mBrowserView!=null){
+            mBrowserView.onDestroy();
+        }
+        super.onDestroyView();
+
+        if(EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+
+    }
+
+
+
 
 
 }

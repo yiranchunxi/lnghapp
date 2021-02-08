@@ -227,6 +227,35 @@
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme" />
 
+        <!-- 发送工会圈 -->
+        <activity android:name=".ui.activity.SendCircleActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/sendCircleTitle"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+
+        <!-- 拍照选择 -->
+        <activity
+            android:name=".ui.activity.CameraActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <!-- 图片选择 -->
+        <activity
+            android:name=".ui.activity.ImageSelectActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/image_select_title"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <!-- 查看大图 -->
+        <activity
+            android:name=".ui.activity.ImagePreviewActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"

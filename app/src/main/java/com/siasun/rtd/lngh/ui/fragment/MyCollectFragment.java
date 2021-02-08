@@ -20,12 +20,13 @@ import com.siasun.rtd.lngh.http.response.QueryNewsResponseDTO;
 import com.siasun.rtd.lngh.http.response.QueryNewsResponseItemDTO;
 import com.siasun.rtd.lngh.ui.activity.BrowserActivity;
 import com.siasun.rtd.lngh.ui.activity.MainTabActivity;
+import com.siasun.rtd.lngh.ui.activity.MyCollectActivity;
 import com.siasun.rtd.lngh.ui.adapter.NewsAdapter;
 
 /**
  * 我的收藏fragment
  */
-public final class MyCollectFragment extends MyFragment<MainTabActivity> implements OnRefreshLoadMoreListener,
+public final class MyCollectFragment extends MyFragment<MyCollectActivity> implements OnRefreshLoadMoreListener,
         BaseAdapter.OnItemClickListener {
     private SmartRefreshLayout mRefreshLayout;
     private WrapRecyclerView mRecyclerView;
@@ -109,7 +110,7 @@ public final class MyCollectFragment extends MyFragment<MainTabActivity> impleme
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         EasyHttp.cancel(this);
+        super.onDestroyView();
     }
 }

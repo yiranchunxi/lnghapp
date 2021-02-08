@@ -96,18 +96,21 @@ public final class BrowserActivity extends MyActivity implements StatusAction, O
 
     @Override
     protected void onResume() {
+        toast("onResume");
         mBrowserView.onResume();
         super.onResume();
     }
 
     @Override
     protected void onPause() {
+        toast("onPause");
         mBrowserView.onPause();
         super.onPause();
     }
 
     @Override
     protected void onDestroy() {
+        toast("onDestroy");
         mBrowserView.onDestroy();
         super.onDestroy();
     }

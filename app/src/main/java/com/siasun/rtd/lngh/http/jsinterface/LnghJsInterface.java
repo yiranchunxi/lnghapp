@@ -43,12 +43,14 @@ public class LnghJsInterface {
     public void showWebScene(String url,boolean hideNavigationBar){
         // hideNavigationBar  true 显示header false不显示 header
         Log.e("test",url);
+
         EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_WEB_SCENE,url));
     }
 
     @JavascriptInterface
     public void showWebScene(String url,boolean hideNavigationBar,String mid){
         // hideNavigationBar  true 显示header false不显示 header
+        Log.e("test","showWebScene");
         EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_WEB_SCENE,url));
     }
 
@@ -114,5 +116,14 @@ public class LnghJsInterface {
     public void showStaffBookstoreScene(){
         Log.e("test","showStaffBookstoreScene()");
         EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_STAFF_BOOKSTORE_SCENE,""));
+    }
+
+    /**
+     *
+     */
+    @JavascriptInterface
+    public void showSendScene(){
+        Log.e("test","showSendScene()");
+        EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_SEND_SCENE,""));
     }
 }

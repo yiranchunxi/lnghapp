@@ -12,7 +12,8 @@ public class ReleaseServer implements IRequestServer {
 
     @Override
     public String getHost() {
-        return "http://app.lnszgh.org/";
+        //return "http://app.lnszgh.org/";
+        return "http://182.92.172.248:8000/";
     }
 
     @Override

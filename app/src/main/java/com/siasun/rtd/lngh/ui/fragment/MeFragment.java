@@ -145,22 +145,53 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
                 }
                 break;
             case R.id.avatar:
-                ImageSelectActivity.start(getAttachActivity(), new ImageSelectActivity.OnPhotoSelectListener() {
+                ImageSelectActivity.start(getAttachActivity(), 3,new ImageSelectActivity.OnPhotoSelectListener() {
 
                     @Override
                     public void onSelected(List<String> data) {
+                        for(int i=0;i<data.size();i++){
+                            Log.e("test",data.get(i));
+                        }
                         toast("选择了" + data.toString());
 
-                        Luban.Companion.with(getAttachActivity())
-                                .load(data)
+                        /*Luban.Companion.with(getAttachActivity())
+                                .load(data.get(0))
                                 .setOutPutDir(getAttachActivity().getExternalCacheDir().toString())
                                 .concurrent(true)
                                 .useDownSample(true)
                                 .format(Bitmap.CompressFormat.PNG)
-                                .quality(95)
-                                .compressObserver(new Function1<CompressResult<List<String>, List<File>>, Unit>() {
+                                .ignoreBy(200)
+                                .quality(40)
+                                .compressObserver(new Function1<CompressResult<String, File>, Unit>() {
                                     @Override
-                                    public Unit invoke(CompressResult<List<String>, List<File>> listListCompressResult) {
+                                    public Unit invoke(CompressResult<String, File> stringFileCompressResult) {
+                                        stringFileCompressResult.setOnSuccess(new Function1<File, Unit>() {
+                                            @Override
+                                            public Unit invoke(File file) {
+                                                toast(file.toString());
+                                                return null;
+                                            }
+                                        });
+                                        return null;
+                                    }
+                                }).launch();*/
+                        Luban.Companion.with(getAttachActivity())
+                                .load(data.toArray())
+                                .setOutPutDir(getAttachActivity().getExternalCacheDir().toString())
+                                .concurrent(true)
+                                .useDownSample(true)
+                                .format(Bitmap.CompressFormat.PNG)
+                                .ignoreBy(200)
+                                .quality(40)
+                                .compressObserver(new Function1<CompressResult<Object, List<File>>, Unit>() {
+                                    @Override
+                                    public Unit invoke(CompressResult<Object, List<File>> objectListCompressResult) {
+                                        objectListCompressResult.setOnSuccess(new Function1<List<File>, Unit>() {
+                                            @Override
+                                            public Unit invoke(List<File> files) {
+                                                return null;
+                                            }
+                                        });
                                         return null;
                                     }
                                 }).launch();

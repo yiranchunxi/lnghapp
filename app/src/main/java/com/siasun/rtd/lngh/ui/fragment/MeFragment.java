@@ -2,12 +2,18 @@ package com.siasun.rtd.lngh.ui.fragment;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.lifecycle.Observer;
+
+import com.forjrking.lubankt.Luban;
+import com.forjrking.lubankt.LubanKt;
+import com.forjrking.lubankt.ext.CompressResult;
 import com.google.gson.Gson;
 import com.hjq.http.EasyHttp;
 import com.siasun.rtd.lngh.R;
@@ -30,6 +36,7 @@ import com.siasun.rtd.lngh.ui.activity.BrowserActivity;
 import com.siasun.rtd.lngh.ui.activity.BrowserNoTitleBarActivity;
 import com.siasun.rtd.lngh.ui.activity.ContactUsActivity;
 import com.siasun.rtd.lngh.ui.activity.FeedBackActivity;
+import com.siasun.rtd.lngh.ui.activity.ImageSelectActivity;
 import com.siasun.rtd.lngh.ui.activity.LoginActivity;
 import com.siasun.rtd.lngh.ui.activity.MainTabActivity;
 import com.siasun.rtd.lngh.ui.activity.MyCollectActivity;
@@ -37,6 +44,13 @@ import com.siasun.rtd.lngh.ui.activity.MyMessageActivity;
 import com.siasun.rtd.lngh.ui.activity.SetActivity;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.io.File;
+import java.util.List;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+import kotlin.jvm.internal.FunctionImpl;
 
 /**
  * 我的fragment
@@ -130,6 +144,34 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
                     toast("请先登录");
                 }
                 break;
+            case R.id.avatar:
+                ImageSelectActivity.start(getAttachActivity(), new ImageSelectActivity.OnPhotoSelectListener() {
+
+                    @Override
+                    public void onSelected(List<String> data) {
+                        toast("选择了" + data.toString());
+
+                        Luban.Companion.with(getAttachActivity())
+                                .load(data)
+                                .setOutPutDir(getAttachActivity().getExternalCacheDir().toString())
+                                .concurrent(true)
+                                .useDownSample(true)
+                                .format(Bitmap.CompressFormat.PNG)
+                                .quality(95)
+                                .compressObserver(new Function1<CompressResult<List<String>, List<File>>, Unit>() {
+                                    @Override
+                                    public Unit invoke(CompressResult<List<String>, List<File>> listListCompressResult) {
+                                        return null;
+                                    }
+                                }).launch();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        toast("取消了");
+                    }
+                });
+                break;
             default:
                 break;
         }
@@ -210,7 +252,7 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
                                 GlideApp.with(getAttachActivity())
                                         .load(R.drawable.icon_me_photo)
                                         .into(avatar);
-                                avatar.setOnClickListener(getAttachActivity());
+                                setOnClickListener(avatar);
                                 iv_me_realname_medal.setVisibility(View.INVISIBLE);
                                 iv_me_union_medal.setVisibility(View.INVISIBLE);
                                 mUserNameContainer.setVisibility(View.INVISIBLE);
@@ -231,7 +273,7 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
                                     SharedPreferenceUtil.getInstance().put(getAttachActivity(),"tag",bean.tag);
                                 }
                                 mUserNameTextView.setText(bean.user_name);
-                                avatar.setOnClickListener(getAttachActivity());
+                                setOnClickListener(avatar);
                                 mUserNameContainer.setVisibility(View.VISIBLE);
                                 iv_me_realname_medal.setVisibility(View.VISIBLE);
                                 iv_me_union_medal.setVisibility(View.VISIBLE);
@@ -264,4 +306,6 @@ public final class MeFragment extends MyFragment<MainTabActivity> {
         super.onDestroyView();
         EasyHttp.cancel(this);
     }
+
+
 }

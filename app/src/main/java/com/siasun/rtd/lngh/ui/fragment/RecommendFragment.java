@@ -1,5 +1,6 @@
 package com.siasun.rtd.lngh.ui.fragment;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,18 +24,26 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.siasun.rtd.lngh.R;
+import com.siasun.rtd.lngh.aop.SingleClick;
 import com.siasun.rtd.lngh.common.MyActivity;
 import com.siasun.rtd.lngh.common.MyFragment;
+import com.siasun.rtd.lngh.http.bean.MessageEvent;
 import com.siasun.rtd.lngh.http.glide.GlideApp;
+import com.siasun.rtd.lngh.http.prefs.Const;
+import com.siasun.rtd.lngh.http.prefs.SharedPreferenceUtil;
 import com.siasun.rtd.lngh.http.request.NewsApi;
 import com.siasun.rtd.lngh.http.request.SwiperApi;
 import com.siasun.rtd.lngh.http.response.QueryBannerResponseDTO;
 import com.siasun.rtd.lngh.http.response.QueryBannerResponseItemDTO;
 import com.siasun.rtd.lngh.http.response.QueryNewsResponseDTO;
 import com.siasun.rtd.lngh.http.response.QueryNewsResponseItemDTO;
+import com.siasun.rtd.lngh.other.IntentKey;
 import com.siasun.rtd.lngh.ui.activity.BrowserActivity;
+import com.siasun.rtd.lngh.ui.activity.BrowserNoTitleBarActivity;
 import com.siasun.rtd.lngh.ui.adapter.NewsAdapter;
 import com.siasun.rtd.lngh.widget.UPMarqueeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,6 +97,9 @@ public class RecommendFragment extends MyFragment<MyActivity>
         ll_service_model=headerView.findViewById(R.id.ll_service_model);
         ll_service_sports=headerView.findViewById(R.id.ll_service_sports);
 
+        setOnClickListener(tv_home_service_more,ll_service_hotline,ll_service_staff,ll_service_model,ll_service_sports);
+
+
         bgaBanner.setAdapter(new BGABanner.Adapter<ImageView, String>() {
             @Override
             public void fillBannerItem(BGABanner banner, ImageView itemView, String model, int position) {
@@ -118,6 +130,47 @@ public class RecommendFragment extends MyFragment<MyActivity>
 
 
         getSwipeData();
+    }
+    @SingleClick
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()){
+            case R.id.tv_home_service_more:
+                EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_SERVICE_SCENE,"event_tag_show_service_scene"));
+                break;
+            case R.id.ll_service_hotline:
+                if(!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(), IntentKey.TOKEN))){
+                    BrowserNoTitleBarActivity.start(getAttachActivity(),Const.URL_LNGH_SERVER+"/lgh/views/12351_hotline/index.html");
+                }else{
+                    toast("请先登录!");
+                }
+                break;
+            case R.id.ll_service_staff:
+                if(!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(), IntentKey.TOKEN))){
+                    BrowserActivity.start(getAttachActivity(),"http://djk.chaoxing.com/index_5856.html");
+                }else{
+                    toast("请先登录!");
+                }
+                break;
+            case R.id.ll_service_model:
+                if(!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(), IntentKey.TOKEN))){
+                    BrowserNoTitleBarActivity.start(getAttachActivity(),Const.URL_LNGH_SERVER+"/lgh/views/workers_house/workers_searchO.html");
+                }else{
+                    toast("请先登录!");
+                }
+                break;
+            case R.id.ll_service_sports:
+                if(!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(), IntentKey.TOKEN))){
+                    BrowserNoTitleBarActivity.start(getAttachActivity(),Const.URL_LNGH_SERVER+"/lgh/views/activities_participate/sublist.html");
+                }else{
+                    toast("请先登录!");
+                }
+                break;
+            default:
+                break;
+        }
+
     }
 
     @Override

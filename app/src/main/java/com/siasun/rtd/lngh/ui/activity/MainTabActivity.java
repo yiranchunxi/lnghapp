@@ -27,6 +27,8 @@ import com.siasun.rtd.lngh.ui.fragment.ServiceFragment;
 import com.siasun.rtd.lngh.ui.fragment.UnionFragment;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public final class MainTabActivity  extends MyActivity implements KeyboardWatcher.SoftKeyboardStateListener,
         BottomNavigationView.OnNavigationItemSelectedListener  {
@@ -48,6 +50,7 @@ public final class MainTabActivity  extends MyActivity implements KeyboardWatche
         mBottomNavigationView.setItemIconTintList(null);
         mBottomNavigationView.setOnNavigationItemSelectedListener(this);
 
+
         KeyboardWatcher.with(this)
                 .setListener(this);
     }
@@ -64,6 +67,7 @@ public final class MainTabActivity  extends MyActivity implements KeyboardWatche
         // 设置成懒加载模式
         mPagerAdapter.setLazyMode(true);
         mViewPager.setAdapter(mPagerAdapter);
+        EventBus.getDefault().register(this);
     }
 
 
@@ -143,6 +147,10 @@ public final class MainTabActivity  extends MyActivity implements KeyboardWatche
         mViewPager.setAdapter(null);
         mBottomNavigationView.setOnNavigationItemSelectedListener(null);
         super.onDestroy();
+
+        if(EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
     @Override
@@ -150,6 +158,11 @@ public final class MainTabActivity  extends MyActivity implements KeyboardWatche
         return false;
     }
 
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageEvent messageEvent) {
+        if(messageEvent.getEventTag().equals(Const.EVENT_TAG_SHOW_SERVICE_SCENE)){
+            mBottomNavigationView.setSelectedItemId(R.id.menu_service);
+        }
+    }
 
 }

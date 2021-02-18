@@ -15,7 +15,8 @@ public class Const {
     public static final int ERROR_TOKEN_WRONG = 0xE1002;
     public static final int ERROR_OTHER_WRONG = 0xE1003;
     public static final int ERROR_CAN_NOT_DEC_DATA = 0xE1005;
-    public static final String URL_LNGH_SERVER="http://app.lnszgh.org";
+    //public static final String URL_LNGH_SERVER="http://app.lnszgh.org";
+    public static final String URL_LNGH_SERVER="http://182.92.172.248";
     public static final String PRIVACY_LISENCE_PAGE_URL="http://app.lnszgh.org/lgh/views/privacy/lisence.html";
     public static final String PRIVACY_PROTECT_PAGE_URL="http://app.lnszgh.org/lgh/views/privacy/protect.html";
     public static final String COLLECT_PAGE_URL = "http://182.92.172.248/lgh/views/circle/favourite.html";
@@ -74,5 +75,8 @@ public class Const {
     public static final String EVENT_TAG_CLICK_UNION="event_tag_click_union";
 
     //显示发布公会圈
-    public static final String EVENT_TAG_SHOW_SEND_SCENE="EVENT_TAG_show_send_scene";
+    public static final String EVENT_TAG_SHOW_SEND_SCENE="event_tag_show_send_scene";
+
+    //首页点击查看更多服务跳转到服务页面
+    public static final String EVENT_TAG_SHOW_SERVICE_SCENE="event_tag_show_service_scene";
 }

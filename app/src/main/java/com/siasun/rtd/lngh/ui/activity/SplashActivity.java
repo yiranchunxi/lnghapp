@@ -21,7 +21,7 @@ public final class SplashActivity extends MyActivity {
     @Override
     protected void initView() {
         postDelayed(()->{
-            startActivity(MainTabActivity.class);
+            startActivity(GuideActivity.class);
             finish();
         },2000);
     }

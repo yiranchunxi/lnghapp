@@ -27,6 +27,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.siasun.rtd.lngh.R;
 import com.siasun.rtd.lngh.action.SwipeAction;
 import com.siasun.rtd.lngh.helper.ActivityStackManager;
+import com.siasun.rtd.lngh.http.glide.GlideApp;
 import com.siasun.rtd.lngh.http.model.RequestHandler;
 import com.siasun.rtd.lngh.http.prefs.Const;
 import com.siasun.rtd.lngh.http.prefs.SharedPreferenceUtil;
@@ -203,5 +204,20 @@ public class MyApplication extends Application implements LifecycleOwner {
         if(!TextUtils.isEmpty(token)){
             Const.Tk=token;
         }
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        //清理所有图片内存缓存
+        GlideApp.get(this).onLowMemory();
+    }
+
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        //根据手机内存剩余情况清理图片内存缓存
+        GlideApp.get(this).onTrimMemory(level);
     }
 }

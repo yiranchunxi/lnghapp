@@ -126,4 +126,13 @@ public class LnghJsInterface {
         Log.e("test","showSendScene()");
         EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_SHOW_SEND_SCENE,""));
     }
+
+    /**
+     * 工会圈消息id修改
+     * @param mid
+     */
+    @JavascriptInterface
+    public void newMsgId(String mid){
+        EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_CIRCLE_POINT,mid));
+    }
 }

@@ -28,10 +28,15 @@ import com.siasun.rtd.lngh.aop.CheckNet;
 import com.siasun.rtd.lngh.common.MyFragment;
 import com.siasun.rtd.lngh.http.bean.CertificationInfo;
 import com.siasun.rtd.lngh.http.bean.MessageEvent;
+import com.siasun.rtd.lngh.http.bean.QueryShareUrlRequestBean;
+import com.siasun.rtd.lngh.http.callback.DecryptCallBack;
 import com.siasun.rtd.lngh.http.prefs.Const;
 import com.siasun.rtd.lngh.http.prefs.MD5Utils;
+import com.siasun.rtd.lngh.http.prefs.MsgHandler;
 import com.siasun.rtd.lngh.http.prefs.SharedPreferenceUtil;
+import com.siasun.rtd.lngh.http.request.HasUpdate;
 import com.siasun.rtd.lngh.http.request.QueryUserIdApi;
+import com.siasun.rtd.lngh.http.response.QueryShareUrlResponseBean;
 import com.siasun.rtd.lngh.http.response.QueryUserIdResponse;
 import com.siasun.rtd.lngh.other.ClearInfoLogin;
 import com.siasun.rtd.lngh.other.IntentKey;
@@ -130,6 +135,7 @@ public final class UnionFragment extends MyFragment<MainTabActivity> implements 
             mBrowserView.onResume();
         }
         isResume=true;
+
         super.onResume();
     }
 
@@ -139,6 +145,7 @@ public final class UnionFragment extends MyFragment<MainTabActivity> implements 
             mBrowserView.onPause();
         }
         isResume=false;
+        controllRedPoint();
         super.onPause();
     }
 
@@ -316,6 +323,53 @@ public final class UnionFragment extends MyFragment<MainTabActivity> implements 
         EasyHttp.cancel(this);
     }
 
+
+    private void controllRedPoint() {
+        if(!TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(getAttachActivity(), IntentKey.TOKEN))){
+
+            String circle_mid = SharedPreferenceUtil.getInstance().get(getAttachActivity(),"circle_mid");
+
+            QueryShareUrlRequestBean bean=new QueryShareUrlRequestBean();
+
+            bean.token=Const.Tk;
+
+            if (TextUtils.isEmpty(circle_mid)) {
+                bean.m_id="0";
+            } else {
+                bean.m_id=circle_mid;
+            }
+
+            String requestString = new Gson().toJson(bean);
+
+
+            String requestMsg = MsgHandler.msgEncode(MsgHandler.createRequestMsg(requestString, true, MsgHandler.EncType.ENC_TYPE_2));
+
+            EasyHttp.post(this)
+                    .api(new HasUpdate()
+                            .setRequestBody(requestMsg))
+                    .request(new DecryptCallBack(this, new DecryptCallBack.ChildrenCallBack() {
+                        @Override
+                        public void onSucceed(String result) {
+                            toast("fragment point");
+                            QueryShareUrlResponseBean bean=new Gson().fromJson(result, QueryShareUrlResponseBean.class);
+
+                            if ("0".equals(bean.result)){
+                                EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_CIRCLE_POINT,""));
+
+                            }else {
+                                EventBus.getDefault().post(new MessageEvent(Const.EVENT_TAG_CIRCLE_POINT,"yes"));
+                            }
+                        }
+
+                        @Override
+                        public void onFail(Exception e) {
+
+                        }
+                    }));
+
+
+        }
+    }
 
 
 }

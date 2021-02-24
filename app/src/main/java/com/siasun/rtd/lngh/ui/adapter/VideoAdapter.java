@@ -46,8 +46,13 @@ public class VideoAdapter extends MyAdapter<VideoBean> {
         public void onBindView(int position) {
             tv_video_name.setText(getItem(position).name);
             tv_video_title.setText(getItem(position).title);
+            String thumb=getItem(position).thumb;
+            if(!thumb.endsWith("jpg")){
+                int flag=thumb.lastIndexOf("jpg");
+                thumb=thumb.substring(0,flag+3);
+            }
             GlideApp.with(context)
-                    .load(getItem(position).thumb)
+                    .load(thumb)
                     .into(iv_thumb);
         }
     }

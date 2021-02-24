@@ -35,6 +35,8 @@ public class Const {
     public static final int CIRCLE_TYPE_VIDEO = 2;
     public static final int CIRCLE_TYPE_LINK = 3;
 
+    //粘贴板跳转到发送公会圈flag
+    public static final String LOGIN_IN_CLIP_SUCCESS="login_in_clip_success";
 
     //消息总线tag
     //显示入会界面 接收在servicefragment
@@ -79,4 +81,7 @@ public class Const {
 
     //首页点击查看更多服务跳转到服务页面
     public static final String EVENT_TAG_SHOW_SERVICE_SCENE="event_tag_show_service_scene";
+
+    //公会圈红点
+    public static final String EVENT_TAG_CIRCLE_POINT="event_tag_circle_point";
 }

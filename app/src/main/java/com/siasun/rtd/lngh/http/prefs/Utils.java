@@ -56,7 +56,6 @@ public class Utils {
 
     public static String findUrl(String url){
 
-
         //处理url匹配
         Pattern urlPattern = Pattern.compile("(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
         Matcher urlMatcher = urlPattern.matcher(url);

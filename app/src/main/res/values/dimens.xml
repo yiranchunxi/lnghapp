@@ -10,4 +10,9 @@
     <!-- 通用对话框圆角大小 -->
     <dimen name="dialog_ui_round_size">15dp</dimen>
 
+    <!-- 圆点大小 -->
+    <dimen name="space_8">8dp</dimen>
+
+    <!-- 圆点大小 -->
+    <dimen name="space_18">12dp</dimen>
 </resources>

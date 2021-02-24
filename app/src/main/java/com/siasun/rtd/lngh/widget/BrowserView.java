@@ -141,7 +141,9 @@ public final class BrowserView extends WebView implements ActivityAction {
     }
 
     public void onDestroy() {
-        ((ViewGroup) getParent()).removeView(this);
+        if(getParent()!=null){
+            ((ViewGroup) getParent()).removeView(this);
+        }
         //清除历史记录
         clearHistory();
         //停止加载

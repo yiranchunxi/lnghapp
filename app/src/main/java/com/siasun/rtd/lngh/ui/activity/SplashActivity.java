@@ -1,6 +1,7 @@
 package com.siasun.rtd.lngh.ui.activity;
 
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import com.gyf.immersionbar.BarHide;
 import com.gyf.immersionbar.ImmersionBar;
 import com.siasun.rtd.lngh.R;
 import com.siasun.rtd.lngh.common.MyActivity;
+import com.siasun.rtd.lngh.http.prefs.SharedPreferenceUtil;
 
 public final class SplashActivity extends MyActivity {
 
@@ -21,7 +23,12 @@ public final class SplashActivity extends MyActivity {
     @Override
     protected void initView() {
         postDelayed(()->{
-            startActivity(GuideActivity.class);
+            if(TextUtils.isEmpty(SharedPreferenceUtil.getInstance().get(this,"guide"))){
+                SharedPreferenceUtil.getInstance().put(this,"guide","yes");
+                startActivity(GuideActivity.class);
+            }else{
+                startActivity(MainTabActivity.class);
+            }
             finish();
         },2000);
     }

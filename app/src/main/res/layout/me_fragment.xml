@@ -291,6 +291,10 @@
                         />
                 </LinearLayout>
             </RelativeLayout>
+
+            <com.siasun.rtd.lngh.widget.RedPointView
+                android:layout_width="18dp"
+                android:layout_height="18dp"/>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

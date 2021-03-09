@@ -9,10 +9,15 @@ import java.util.List;
 public class QueryBannerResponseDTO<T> {
     public List<T> data;
     public List<T> act;
+    public List<T> act_xcx;
     public List<T> getData() {
         return data;
     }
     public List<T> getAct() {
         return act;
+    }
+
+    public List<T> getAct_xcx() {
+        return act_xcx;
     }
 }

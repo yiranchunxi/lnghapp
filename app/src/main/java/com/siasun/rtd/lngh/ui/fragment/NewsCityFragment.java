@@ -14,8 +14,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.siasun.rtd.lngh.R;
 import com.siasun.rtd.lngh.common.MyFragment;
-import com.siasun.rtd.lngh.http.request.NewsCityApi;
-import com.siasun.rtd.lngh.http.request.NewsSzApi;
+import com.siasun.rtd.lngh.http.request.NewsApi;
 import com.siasun.rtd.lngh.http.response.QueryNewsResponseDTO;
 import com.siasun.rtd.lngh.http.response.QueryNewsResponseItemDTO;
 import com.siasun.rtd.lngh.ui.activity.BrowserActivity;
@@ -53,7 +52,7 @@ public class NewsCityFragment extends MyFragment<MainTabActivity> implements OnR
     @Override
     protected void initData() {
         EasyHttp.get(this)
-                .api(new NewsCityApi().setLast_id(""))
+                .api(new NewsApi().setLast_id("").setUnit("3"))
                 .request(new HttpCallback<QueryNewsResponseDTO<QueryNewsResponseItemDTO>>(this){
                     @Override
                     public void onSucceed(QueryNewsResponseDTO<QueryNewsResponseItemDTO> result) {
@@ -73,7 +72,7 @@ public class NewsCityFragment extends MyFragment<MainTabActivity> implements OnR
         //toast(last_id);
 
         EasyHttp.get(this)
-                .api(new NewsCityApi().setLast_id(last_id))
+                .api(new NewsApi().setLast_id(last_id).setUnit("3"))
                 .request(new HttpCallback<QueryNewsResponseDTO<QueryNewsResponseItemDTO>>(this){
                     @Override
                     public void onSucceed(QueryNewsResponseDTO<QueryNewsResponseItemDTO> result) {
@@ -90,7 +89,7 @@ public class NewsCityFragment extends MyFragment<MainTabActivity> implements OnR
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         EasyHttp.get(this)
-                .api(new NewsCityApi().setLast_id(""))
+                .api(new NewsApi().setLast_id("").setUnit("3"))
                 .request(new HttpCallback<QueryNewsResponseDTO<QueryNewsResponseItemDTO>>(this){
                     @Override
                     public void onSucceed(QueryNewsResponseDTO<QueryNewsResponseItemDTO> result) {

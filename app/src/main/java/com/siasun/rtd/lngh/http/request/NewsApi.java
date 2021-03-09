@@ -21,8 +21,15 @@ public final class NewsApi extends InfoServer implements IRequestApi, IRequestPa
 
     private String last_id;
 
+    private String unit;
+
     public NewsApi setLast_id(String last_id) {
         this.last_id = last_id;
+        return this;
+    }
+
+    public NewsApi setUnit(String unit) {
+        this.unit = unit;
         return this;
     }
 }

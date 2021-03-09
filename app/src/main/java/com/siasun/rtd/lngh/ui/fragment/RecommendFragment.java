@@ -119,7 +119,7 @@ public class RecommendFragment extends MyFragment<MyActivity>
     @Override
     protected void initData() {
         EasyHttp.get(this)
-                .api(new NewsApi().setLast_id(""))
+                .api(new NewsApi().setLast_id("").setUnit("1"))
                 .request(new HttpCallback<QueryNewsResponseDTO<QueryNewsResponseItemDTO>>(this){
                     @Override
                     public void onSucceed(QueryNewsResponseDTO<QueryNewsResponseItemDTO> result) {
@@ -185,7 +185,7 @@ public class RecommendFragment extends MyFragment<MyActivity>
             //toast(last_id);
 
             EasyHttp.get(this)
-                    .api(new NewsApi().setLast_id(last_id))
+                    .api(new NewsApi().setLast_id(last_id).setUnit("1"))
                     .request(new HttpCallback<QueryNewsResponseDTO<QueryNewsResponseItemDTO>>(this){
                         @Override
                         public void onSucceed(QueryNewsResponseDTO<QueryNewsResponseItemDTO> result) {
@@ -201,7 +201,7 @@ public class RecommendFragment extends MyFragment<MyActivity>
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         EasyHttp.get(this)
-                .api(new NewsApi().setLast_id(""))
+                .api(new NewsApi().setLast_id("").setUnit("1"))
                 .request(new HttpCallback<QueryNewsResponseDTO<QueryNewsResponseItemDTO>>(this){
                     @Override
                     public void onSucceed(QueryNewsResponseDTO<QueryNewsResponseItemDTO> result) {
@@ -242,14 +242,12 @@ public class RecommendFragment extends MyFragment<MyActivity>
 
                         views.clear();
 
-                        for (QueryBannerResponseItemDTO queryBannerResponseItemDTO : result.getAct()){
+                        for (QueryBannerResponseItemDTO queryBannerResponseItemDTO : result.getAct_xcx()){
 
 
                             LinearLayout moreView = (LinearLayout) LayoutInflater.from(getAttachActivity()).inflate(R.layout.item_banner_view, null);
                             //初始化布局的控件
-
                             ImageView imageView=moreView.findViewById(R.id.iv_banner);
-
                             GlideApp.with(getAttachActivity())
                                     .load(queryBannerResponseItemDTO.pic_url)
                                     .into(imageView);
@@ -263,7 +261,7 @@ public class RecommendFragment extends MyFragment<MyActivity>
                         upMarView.setOnItemClickListener(new UPMarqueeView.OnItemClickListener() {
                             @Override
                             public void onItemClick(int position, View view) {
-                                BrowserActivity.start(getAttachActivity(), result.getAct().get(position).redirect_url);
+                                BrowserActivity.start(getAttachActivity(), result.getAct_xcx().get(position).redirect_url);
                             }
                         });
                     }
